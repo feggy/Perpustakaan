@@ -1,0 +1,27 @@
+
+bsquid:CommentedOutCodeLineA"<This block of commented-out lines of code should be removed.(Ž®ƒ÷
+Gsquid:S1659%"+Declare "postIdAnggota" on a separate line.(ðª¦‘ûÿÿÿÿ
+\squid:UselessImportCheck"3Remove this unused import 'android.graphics.Color'.(øãíòþÿÿÿÿ
+:squid:S1148Œ"#Use a logger to log this exception.(ˆñA
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ß²¶„ûÿÿÿÿ
+@squid:S1659&"$Declare "btnCek" on a separate line.(›È”´úÿÿÿÿ
+nsquid:CommentedOutCodeLine3"<This block of commented-out lines of code should be removed.(ùÿÁÂýÿÿÿÿ8Óõ‘Ÿ-
+bsquid:CommentedOutCodeLineP"<This block of commented-out lines of code should be removed.(ŸðÊö
+[squid:UselessImportCheck"7Remove this unused import 'java.text.SimpleDateFormat'.(ú¡ÙÛ
+nsquid:S00117|"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(âãô—ÿÿÿÿÿ
+gsquid:CommentedOutCodeLineR"<This block of commented-out lines of code should be removed.(Ž¡œŠûÿÿÿÿ
+gsquid:CommentedOutCodeLine_"<This block of commented-out lines of code should be removed.(Ã™™„øÿÿÿÿ
+bsquid:CommentedOutCodeLineY"<This block of commented-out lines of code should be removed.(¶£Ù‹
+@squid:S1148…"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+dsquid:MaximumInheritanceDepth!"<This class has 8 parents which is greater than 5 authorized.(øŠúe
+Esquid:S1185É"(Remove this method to simply inherit it.(œƒƒ©ùÿÿÿÿ
+>squid:S1659$"'Declare "hasilScan" on a separate line.(«•ˆ„
+bsquid:CommentedOutCodeLine9"<This block of commented-out lines of code should be removed.(øéÀÝ
+Esquid:S1659#")Declare "etIdAnggota" on a separate line.(ãÃ”õùÿÿÿÿ
+gsquid:CommentedOutCodeLineK"<This block of commented-out lines of code should be removed.(‚«¤šýÿÿÿÿ
+@squid:S1148°"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+Esquid:S1659#")Declare "etJudulBuku" on a separate line.(ãÃ”õùÿÿÿÿ
+T
+squid:S106}"9Replace this use of System.out or System.err by a logger.(Øð€Éøÿÿÿÿ
+msquid:UselessImportCheck"DRemove this unused import 'android.graphics.drawable.ColorDrawable'.(ÖŸÂ«øÿÿÿÿ
+gsquid:CommentedOutCodeLine?"<This block of commented-out lines of code should be removed.(›í«Óøÿÿÿÿ

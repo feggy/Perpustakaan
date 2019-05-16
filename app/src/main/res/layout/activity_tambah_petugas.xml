@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.spesialiskp.perpustakaan.Activity.TambahPetugasActivity">
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#292929"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:text="FORM TAMBAH PETUGAS"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#292929"
+            android:textSize="18dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:text="Username"/>
+        <EditText
+            android:id="@+id/etIdAnggota"
+            android:layout_width="250dp"
+            android:layout_marginLeft="95dp"
+            android:backgroundTint="#292929"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#292929"
+            android:textSize="18dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:text="Password"/>
+        <EditText
+            android:id="@+id/etNamaAnggota"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="95dp"
+            android:backgroundTint="#292929"
+            android:inputType="textPassword"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#292929"
+            android:textSize="18dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:text="Nama"/>
+        <EditText
+            android:id="@+id/etNoHpAnggota"
+            android:layout_width="250dp"
+            android:layout_marginLeft="95dp"
+            android:backgroundTint="#292929"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#292929"
+            android:textSize="18dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:text="Level"/>
+        <RadioGroup
+            android:id="@+id/rgLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="95dp"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/rbPetugas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Petugas"/>
+            <RadioButton
+                android:id="@+id/rbAdmin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Administrator"/>
+        </RadioGroup>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#292929"
+            android:textSize="18dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:text="No Hp"/>
+        <EditText
+            android:id="@+id/etNoHp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_marginLeft="95dp"
+            android:backgroundTint="#292929" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#292929"
+            android:textSize="18dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:text="Alamat"/>
+        <EditText
+            android:id="@+id/etAlamat"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="95dp"
+            android:backgroundTint="#292929" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#292929"
+            android:textSize="18dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:text="Foto"/>
+        <Button
+            android:id="@+id/btnUpload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="95dp"
+            android:text="upload"/>
+        <TextView
+            android:id="@+id/tvKeteranganFoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=".jpg atau .jpeg"
+            android:textSize="18dp"
+            android:layout_marginLeft="190dp"
+            android:layout_centerVertical="true"
+            android:textColor="#292929"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:text="submit"
+        android:background="@color/colorPrimary"
+        android:textColor="#FFF" />
+
+</LinearLayout>

@@ -1,0 +1,17 @@
+
+¤squid:S1186r"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(£µ¢›ÿÿÿÿÿ8Ğş»Ÿ-
+Jsquid:S1135œ"2Complete the task associated to this TODO comment.(‡‚ùˆ
+msquid:S1450&"VRemove the "mParam1" field and declare it as a local variable in the relevant methods.(•Íï‘
+_squid:S00112†"FDefine and throw a dedicated exception instead of using a generic one.(İŒÜ±
+Fsquid:S1148l"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8Ğş»Ÿ-
+Fsquid:S1659L"(Declare "tvJmlhBuku" on a separate line.(ş« å8µ°è»Ÿ-
+Isquid:S1659L"+Declare "tvJmlhKembali" on a separate line.(ş« å8µ°è»Ÿ-
+msquid:S1450'"VRemove the "mParam2" field and declare it as a local variable in the relevant methods.(¡ˆ€ 
+Lsquid:S1659L".Declare "tvJmlhPeminjaman" on a separate line.(ş« å8µ°è»Ÿ-
+Isquid:S1135y"2Complete the task associated to this TODO comment.(åµÈ¶
+Bsquid:S1068'"+Remove this unused "mParam2" private field.(¡ˆ€ 
+Nsquid:S1135 "2Complete the task associated to this TODO comment.(ÜûŠ—øÿÿÿÿ
+Bsquid:S1068&"+Remove this unused "mParam1" private field.(•Íï‘
+Nsquid:S1135%"2Complete the task associated to this TODO comment.(ğï¢öúÿÿÿÿ
+Nsquid:S11358"2Complete the task associated to this TODO comment.(ßíŠÿÿÿÿÿ
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(äñÿİùÿÿÿÿ

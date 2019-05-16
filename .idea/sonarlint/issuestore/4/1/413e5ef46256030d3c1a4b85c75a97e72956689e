@@ -1,0 +1,23 @@
+
+bsquid:CommentedOutCodeLine:"<This block of commented-out lines of code should be removed.(‘¸ƒÚ
+isquid:S001175"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±†Î
+csquid:S2184L"@Cast one of the operands of this integer division to a "double".(ÚôñÁùÿÿÿÿ8Ä§¨ºŸ-
+Fsquid:S1659e"#Declare "denda" on a separate line.(ýŠ§¢øÿÿÿÿ8±‡¤¹Ÿ-
+asquid:UselessImportCheck
+"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ8ÜÅ”ºŸ-
+Lsquid:S1659e")Declare "tgl_kembali" on a separate line.(ýŠ§¢øÿÿÿÿ8±‡¤¹Ÿ-
+usquid:S00117D"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Éðœ”þÿÿÿÿ8‚œŸ¹Ÿ-
+Esquid:S1659e""Declare "buku" on a separate line.(ýŠ§¢øÿÿÿÿ8±‡¤¹Ÿ-
+zsquid:S00116e"VRename this field "tgl_kembali" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ýŠ§¢øÿÿÿÿ8±‡¤¹Ÿ-
+psquid:S001176"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ªêŒ­8°¡¹Ÿ-
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(«ØÌÇøÿÿÿÿ
+Esquid:S1659e""Declare "nama" on a separate line.(ýŠ§¢øÿÿÿÿ8±‡¤¹Ÿ-
+Ksquid:S1659e"(Declare "tgl_pinjam" on a separate line.(ýŠ§¢øÿÿÿÿ8±‡¤¹Ÿ-
+squid:S1319"sThe type of the "dataList" object should be an interface such as "List" rather than the implementation "ArrayList".(‡·©¶üÿÿÿÿ
+dsquid:S2184L"ACast one of the operands of this division operation to a "float".(ÚôñÁùÿÿÿÿ8ÕÝÆºŸ-
+zsquid:S00116e"VRename this field "kode_pinjam" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ýŠ§¢øÿÿÿÿ8±‡¤¹Ÿ-
+ysquid:S00116e"URename this field "tgl_pinjam" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ýŠ§¢øÿÿÿÿ8±‡¤¹Ÿ-
+Fsquid:S1148T"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8Í¹¥¹Ÿ-
+bsquid:CommentedOutCodeLine>"<This block of commented-out lines of code should be removed.(õ’Á¥
+Gsquid:S1659e"$Declare "status" on a separate line.(ýŠ§¢øÿÿÿÿ8±‡¤¹Ÿ-
+esquid:UselessImportCheck":Remove this unused import 'java.util.concurrent.TimeUnit'.(Æ™þ8•¸æºŸ-

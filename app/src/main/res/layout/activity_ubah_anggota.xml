@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.spesialiskp.perpustakaan.Activity.UbahAnggotaActivity">
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#292929"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:text="FORM UBAH ANGGOTA"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#292929"
+            android:textSize="18dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:text="ID Anggota"/>
+        <EditText
+            android:id="@+id/etIdAnggota"
+            android:layout_width="250dp"
+            android:layout_marginLeft="95dp"
+            android:backgroundTint="#292929"
+            android:editable="false"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#292929"
+            android:textSize="18dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:text="Nama"/>
+        <EditText
+            android:id="@+id/etNamaAnggota"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="95dp"
+            android:backgroundTint="#292929"
+            android:inputType="text"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#292929"
+            android:textSize="18dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:text="No Hp"/>
+        <EditText
+            android:id="@+id/etNoHpAnggota"
+            android:layout_width="250dp"
+            android:layout_marginLeft="95dp"
+            android:backgroundTint="#292929"
+            android:inputType="number"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#292929"
+            android:textSize="18dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:text="Alamat"/>
+        <EditText
+            android:id="@+id/etAlamat"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="95dp"
+            android:backgroundTint="#292929" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#292929"
+            android:textSize="18dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:text="Foto"/>
+        <Button
+            android:id="@+id/btnUpload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="95dp"
+            android:text="upload"/>
+        <TextView
+            android:id="@+id/tvKeteranganFoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=".jpg atau .jpeg"
+            android:textSize="18dp"
+            android:layout_marginLeft="190dp"
+            android:layout_centerVertical="true"
+            android:textColor="#292929"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#292929"
+            android:textSize="18dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:text="Tgl Daftar"/>
+        <TextView
+            android:id="@+id/tvTglDaftarAnggota"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:text="20-03-2019"
+            android:textSize="18dp"
+            android:textColor="#292929" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#292929"
+            android:textSize="18dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:text="Awal Pakai"/>
+        <EditText
+            android:id="@+id/etAwalPakai"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="95dp"
+            android:backgroundTint="#292929"
+            android:hint="17-03-2019"
+            android:inputType="datetime"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#292929"
+            android:textSize="18dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:text="Akhir Pakai"/>
+        <EditText
+            android:id="@+id/etAkhirPakai"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="95dp"
+            android:backgroundTint="#292929"
+            android:inputType="datetime"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:text="submit"
+        android:background="@color/colorPrimary"
+        android:textColor="#FFF"
+        />
+</LinearLayout>
