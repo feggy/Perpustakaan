@@ -23,21 +23,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spesialiskp.perpustakaan.Adapter.PagerAdapter;
-import com.spesialiskp.perpustakaan.Constants;
+import com.spesialiskp.perpustakaan.Constants.Constants;
 import com.spesialiskp.perpustakaan.R;
-import com.spesialiskp.perpustakaan.SharedPrefManager;
-import com.spesialiskp.perpustakaan.Tab.TabBuku;
-import com.spesialiskp.perpustakaan.Tab.TabDashboard;
-import com.spesialiskp.perpustakaan.Tab.TabTransaksi;
+import com.spesialiskp.perpustakaan.Support.SharedPrefManager;
+import com.spesialiskp.perpustakaan.Activity.MainFragment.TabBuku;
+import com.spesialiskp.perpustakaan.Activity.MainFragment.TabDashboard;
 
 import java.io.InputStream;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
-        TabDashboard.OnFragmentInteractionListener,
-        TabBuku.OnFragmentInteractionListener,
-        TabTransaksi.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     String level;
 
@@ -47,15 +43,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -177,16 +164,19 @@ public class MainActivity extends AppCompatActivity
             } else {
                 Toast.makeText(getApplicationContext(), "Menu ini hanya bisa di akses oleh Administrator", Toast.LENGTH_LONG).show();
             }
+        } else if (id == R.id.nav_peminjaman) {
+            startActivity(new Intent(this, PeminjamanActivity.class));
+        } else if (id == R.id.nav_pengembalian) {
+
+        } else if (id == R.id.nav_perpanjang) {
+            startActivity(new Intent(this, PerpanjangActivity.class));
+        } else if (id == R.id.nav_buku) {
+            startActivity(new Intent(this, TambahBukuActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
     // UNTUK LIHAT IMAGE DARI URL

@@ -7,7 +7,7 @@
     android:weightSum="10"
     android:background="#F5F5F5"
     android:layout_gravity="center"
-    tools:context="com.spesialiskp.perpustakaan.Tab.TabDashboard">
+    tools:context="com.spesialiskp.perpustakaan.Activity.MainFragment.TabDashboard">
 
     <TextView
         android:layout_width="match_parent"

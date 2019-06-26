@@ -22,10 +22,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.spesialiskp.perpustakaan.Activity.AnggotaActivity;
 import com.spesialiskp.perpustakaan.Activity.UbahAnggotaActivity;
-import com.spesialiskp.perpustakaan.Constants;
+import com.spesialiskp.perpustakaan.Constants.Constants;
 import com.spesialiskp.perpustakaan.Models.Anggota;
 import com.spesialiskp.perpustakaan.R;
-import com.spesialiskp.perpustakaan.RequestHandler;
+import com.spesialiskp.perpustakaan.Volley.RequestHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;

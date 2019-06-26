@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.spesialiskp.perpustakaan.Tab.TabBuku;
-import com.spesialiskp.perpustakaan.Tab.TabDashboard;
-import com.spesialiskp.perpustakaan.Tab.TabTransaksi;
+import com.spesialiskp.perpustakaan.Activity.MainFragment.TabBuku;
+import com.spesialiskp.perpustakaan.Activity.MainFragment.TabDashboard;
+import com.spesialiskp.perpustakaan.Activity.MainFragment.TabTransaksi;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
 

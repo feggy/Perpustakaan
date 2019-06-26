@@ -1,14 +1,15 @@
 package com.spesialiskp.perpustakaan.Activity;
 
-import android.app.DatePickerDialog;
+import android.Manifest;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -18,15 +19,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.spesialiskp.perpustakaan.Constants;
+import com.spesialiskp.perpustakaan.Constants.Constants;
 import com.spesialiskp.perpustakaan.R;
-import com.spesialiskp.perpustakaan.RequestHandler;
+import com.spesialiskp.perpustakaan.Volley.RequestHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +36,7 @@ public class PeminjamanActivity extends AppCompatActivity {
     String postKodeBuku, postIdAnggota;
     Button btnSubmit, btnCek;
     RelativeLayout vKodeBuku;
+    private int RCode = 111;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,12 @@ public class PeminjamanActivity extends AppCompatActivity {
         etKodeBuku.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PeminjamanActivity.this, ScanBarcodeActivity.class));
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA)
+                        == PackageManager.PERMISSION_DENIED) {
+                    ActivityCompat.requestPermissions(PeminjamanActivity.this, new String[] {Manifest.permission.CAMERA}, RCode);
+                } else {
+                    startActivity(new Intent(PeminjamanActivity.this, ScanBarcodeActivity.class));
+                }
 //                kodeBuku = etKodeBuku.getText().toString().trim();
             }
         });
@@ -104,6 +109,16 @@ public class PeminjamanActivity extends AppCompatActivity {
                 simpanData();
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED) {
+            startActivity(new Intent(PeminjamanActivity.this, ScanBarcodeActivity.class));
+        }
     }
 
     private void cekJudulBuku() {

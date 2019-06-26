@@ -27,9 +27,9 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
-import com.spesialiskp.perpustakaan.Constants;
+import com.spesialiskp.perpustakaan.Constants.Constants;
 import com.spesialiskp.perpustakaan.R;
-import com.spesialiskp.perpustakaan.RequestHandler;
+import com.spesialiskp.perpustakaan.Volley.RequestHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,12 +39,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class TambahBukuActivity extends AppCompatActivity {

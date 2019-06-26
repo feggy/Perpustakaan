@@ -1,7 +1,7 @@
-package com.spesialiskp.perpustakaan;
+package com.spesialiskp.perpustakaan.Constants;
 
 public class Constants {
-    public static final String HTTP = "http://192.168.9.121/";
+    public static final String HTTP = "http://www.bukadrakor.com/";
     private static final String ROOT_URL = HTTP+"perpustakaan/control/";
     public static final String URL_LOGIN = ROOT_URL+"login.php";
     public static final String URL_LIHAT = ROOT_URL+"lihat.php";

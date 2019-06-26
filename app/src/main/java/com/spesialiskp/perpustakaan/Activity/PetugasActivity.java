@@ -17,20 +17,17 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.spesialiskp.perpustakaan.Constants;
+import com.spesialiskp.perpustakaan.Constants.Constants;
 import com.spesialiskp.perpustakaan.Models.Petugas;
 import com.spesialiskp.perpustakaan.Adapter.PetugasAdapter;
 import com.spesialiskp.perpustakaan.R;
-import com.spesialiskp.perpustakaan.RecyclerItemClickListener;
-import com.spesialiskp.perpustakaan.RequestHandler;
-import com.spesialiskp.perpustakaan.SharedPrefManager;
+import com.spesialiskp.perpustakaan.Support.RecyclerItemClickListener;
+import com.spesialiskp.perpustakaan.Volley.RequestHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

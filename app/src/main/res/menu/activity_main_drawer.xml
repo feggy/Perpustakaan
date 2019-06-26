@@ -3,22 +3,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_anggota"
-            android:icon="@drawable/ic_people_black_24dp"
-            android:title="Anggota" />
-        <!--<item-->
-            <!--android:id="@+id/nav_buku"-->
-            <!--android:icon="@drawable/ic_book_black_24dp"-->
-            <!--android:title="Buku" />-->
-        <!--<item-->
-            <!--android:id="@+id/nav_transaksi"-->
-            <!--android:icon="@drawable/ic_shopping_cart_black_24dp"-->
-            <!--android:title="Transaksi" />-->
-        <item
-            android:id="@+id/nav_petugas"
-            android:icon="@drawable/ic_person_add_black_24dp"
-            android:title="Petugas" />
-    </group>
+    <item android:title="Admin">
+        <menu>
+            <group
+                android:id="@+id/group1"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_anggota"
+                    android:icon="@drawable/ic_people_black_24dp"
+                    android:title="Anggota" />
+                <!--<item-->
+                <!--android:id="@+id/nav_buku"-->
+                <!--android:icon="@drawable/ic_book_black_24dp"-->
+                <!--android:title="Buku" />-->
+                <!--<item-->
+                <!--android:id="@+id/nav_transaksi"-->
+                <!--android:icon="@drawable/ic_shopping_cart_black_24dp"-->
+                <!--android:title="Transaksi" />-->
+                <item
+                    android:id="@+id/nav_petugas"
+                    android:icon="@drawable/ic_person_add_black_24dp"
+                    android:title="Petugas" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Buku">
+        <menu>
+            <group
+                android:id="@+id/group3"
+                android:checkableBehavior="single">
+                <item
+                android:id="@+id/nav_buku"
+                android:icon="@drawable/ic_book_black_24dp"
+                android:title="Tambah Buku" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Transaksi">
+        <menu>
+            <group
+                android:id="@+id/group2"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_peminjaman"
+                    android:title="Peminjaman"
+                    android:icon="@drawable/peminjaman" />
+                <item
+                    android:id="@+id/nav_pengembalian"
+                    android:title="Pengembalian"
+                    android:icon="@drawable/pengembalian" />
+                <item
+                    android:id="@+id/nav_perpanjang"
+                    android:title="Perpanjang"
+                    android:icon="@drawable/perpanjang" />
+
+            </group>
+        </menu>
+    </item>
 </menu>
