@@ -2,6 +2,7 @@ package com.spesialiskp.perpustakaan.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -42,6 +44,8 @@ public class PetugasActivity extends AppCompatActivity {
     String[] item ={"Ubah", "Hapus"};
     JSONObject data;
     JSONArray jsonArray;
+    LinearLayout vCaution;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +54,25 @@ public class PetugasActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         progressBar = findViewById(R.id.progressBar);
+        vCaution = findViewById(R.id.vCaution);
 
-        FloatingActionButton fab = findViewById(R.id.fabTambah);
+        fab = findViewById(R.id.fabTambah);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(PetugasActivity.this, TambahPetugasActivity.class));
+            }
+        });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0){
+                    if (fab.isShown()) fab.setVisibility(View.GONE);
+                } else {
+                    if (!fab.isShown()) fab.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -170,24 +187,29 @@ public class PetugasActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        progressBar.setVisibility(View.GONE);
                         try {
                             petugasArrayList = new ArrayList<>();
                             JSONObject jsonObject = new JSONObject(response);
                             jsonArray = jsonObject.getJSONArray("pengguna");
 
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                data = jsonArray.getJSONObject(i);
+                            if (jsonArray.length() > 0){
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    data = jsonArray.getJSONObject(i);
 
-                                nama = data.getString("nama");
-                                nomor = Integer.toString(i+1)+".";
+                                    nama = data.getString("nama");
+                                    nomor = Integer.toString(i+1)+".";
 
-                                Petugas petugas = new Petugas(nomor, nama);
-                                petugasArrayList.add(petugas);
+                                    Petugas petugas = new Petugas(nomor, nama);
+                                    petugasArrayList.add(petugas);
+                                }
+                                petugasAdapter = new PetugasAdapter(petugasArrayList);
+                                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+                                recyclerView.setLayoutManager(layoutManager);
+                                recyclerView.setAdapter(petugasAdapter);
+                            } else {
+                                vCaution.setVisibility(View.VISIBLE);
                             }
-                            petugasAdapter = new PetugasAdapter(petugasArrayList);
-                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-                            recyclerView.setLayoutManager(layoutManager);
-                            recyclerView.setAdapter(petugasAdapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
@@ -200,7 +222,6 @@ public class PetugasActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Gagal terhubung ke server", Toast.LENGTH_LONG).show();
                     }
                 });
-        progressBar.setVisibility(View.INVISIBLE);
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 }

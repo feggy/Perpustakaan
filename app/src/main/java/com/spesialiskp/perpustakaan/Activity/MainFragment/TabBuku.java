@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -38,6 +40,8 @@ public class TabBuku extends Fragment {
     View view;
     SearchView searchView;
     RecyclerView recyclerView;
+    LinearLayout vCaution;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +55,8 @@ public class TabBuku extends Fragment {
 //        searchView.setQueryHint("Cari buku apa?");
 
         recyclerView = view.findViewById(R.id.recyclerView);
+        vCaution = view.findViewById(R.id.vCaution);
+        progressBar = view.findViewById(R.id.progressBar);
 
         /*FloatingActionButton fab = view.findViewById(R.id.fabBuku);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +72,8 @@ public class TabBuku extends Fragment {
     }
 
     private void tampilData() {
+        progressBar.setVisibility(View.VISIBLE);
+
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
                 Constants.URL_LIHAT_BUKU,
@@ -77,19 +85,26 @@ public class TabBuku extends Fragment {
                             JSONObject jsonObject = new JSONObject(response);
                             JSONArray jsonArray = jsonObject.getJSONArray("buku");
 
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject data = jsonArray.getJSONObject(i);
+                            if (jsonArray.length() > 0){
+                                progressBar.setVisibility(View.GONE);
 
-                                String kode = data.getString("kode_buku");
-                                String judul = data.getString("judul_buku");
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject data = jsonArray.getJSONObject(i);
 
-                                Buku buku = new Buku(kode, judul, "","","","","","","");
-                                bukuArrayList.add(buku);
+                                    String kode = data.getString("kode_buku");
+                                    String judul = data.getString("judul_buku");
+
+                                    Buku buku = new Buku(kode, judul, "","","","","","","");
+                                    bukuArrayList.add(buku);
+                                }
+                                BukuAdapter bukuAdapter = new BukuAdapter(bukuArrayList);
+                                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
+                                recyclerView.setLayoutManager(layoutManager);
+                                recyclerView.setAdapter(bukuAdapter);
+                            } else {
+                                progressBar.setVisibility(View.GONE);
+                                vCaution.setVisibility(View.VISIBLE);
                             }
-                            BukuAdapter bukuAdapter = new BukuAdapter(bukuArrayList);
-                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
-                            recyclerView.setLayoutManager(layoutManager);
-                            recyclerView.setAdapter(bukuAdapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

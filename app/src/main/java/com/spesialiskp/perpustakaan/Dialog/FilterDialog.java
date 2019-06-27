@@ -1,11 +1,15 @@
 package com.spesialiskp.perpustakaan.Dialog;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +20,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.kimkevin.cachepot.CachePot;
+import com.spesialiskp.perpustakaan.Activity.MainFragment.TabTransaksi;
+import com.spesialiskp.perpustakaan.Activity.TransaksiActivity;
 import com.spesialiskp.perpustakaan.R;
 import com.spesialiskp.perpustakaan.Support.RoundedBottomSheetDialogFragment;
 import com.spesialiskp.perpustakaan.Support.NamaBulan;
@@ -35,7 +42,7 @@ public class FilterDialog extends RoundedBottomSheetDialogFragment {
     String sTgl, sBln, eTgl, eBln, sPost, ePost;
     DatePickerDialog.OnDateSetListener tgl_awal, tgl_akhir;
     Locale locale;
-    SimpleDateFormat sdf;
+    SimpleDateFormat sdf, sdfPost;
     NamaBulan nBulan;
     Calendar cal;
 
@@ -59,6 +66,7 @@ public class FilterDialog extends RoundedBottomSheetDialogFragment {
         cal = Calendar.getInstance();
         locale = new Locale("id", "ID");
         sdf = new SimpleDateFormat("dd MMMM yyyy", locale);
+        sdfPost = new SimpleDateFormat("yyyy-MM-dd");
         Log.e("getTime", cal.getTime().toString());
 
         btnApply = view.findViewById(R.id.btnApply);
@@ -75,13 +83,18 @@ public class FilterDialog extends RoundedBottomSheetDialogFragment {
         btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(view.getContext(),"MANTAPPPP!!!!", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(getContext(), TransaksiActivity.class);
+                i.putExtra("start", sPost);
+                i.putExtra("end", ePost);
+                startActivity(i);
+
                 dismiss();
             }
         });
     }
 
     private void startDate(){
+        sPost = sdfPost.format(cal.getTime());
         tvDateStart.setText(sdf.format(cal.getTime()));
 
         vStartDate.setOnClickListener(new View.OnClickListener() {
@@ -94,10 +107,10 @@ public class FilterDialog extends RoundedBottomSheetDialogFragment {
 
                 DatePickerDialog dialog = new DatePickerDialog(
                         view.getContext(),
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        getTheme(),
                         tgl_awal,
                         year, month, day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
         });
@@ -125,6 +138,7 @@ public class FilterDialog extends RoundedBottomSheetDialogFragment {
     }
 
     private void endDate(){
+        ePost = sdfPost.format(cal.getTime());
         tvDateEnd.setText(sdf.format(cal.getTime()));
 
         vEndDate.setOnClickListener(new View.OnClickListener() {
@@ -137,10 +151,10 @@ public class FilterDialog extends RoundedBottomSheetDialogFragment {
 
                 DatePickerDialog dialog = new DatePickerDialog(
                         view.getContext(),
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        getTheme(),
                         tgl_akhir,
                         year, month, day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
         });

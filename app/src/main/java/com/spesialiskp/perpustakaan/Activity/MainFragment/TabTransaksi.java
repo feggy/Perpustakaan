@@ -5,13 +5,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -19,6 +23,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.github.kimkevin.cachepot.CachePot;
 import com.spesialiskp.perpustakaan.Activity.PeminjamanActivity;
 import com.spesialiskp.perpustakaan.Adapter.PeminjamanAdapter;
 import com.spesialiskp.perpustakaan.Constants.Constants;
@@ -51,6 +56,8 @@ public class TabTransaksi extends Fragment {
     JSONArray jsonArray;
     JSONObject data;
     String id, tgl_kembali;
+    LinearLayout vCaution;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,12 +65,10 @@ public class TabTransaksi extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_tab_transaksi, container, false);
 
-        /*BottomSheetDialog dialog = new BottomSheetDialog(view.getContext());
-        dialog.setContentView(view);
-        dialog.show();*/
-
         recyclerView = view.findViewById(R.id.recyclerView);
         fab = view.findViewById(R.id.fabTransaksi);
+        vCaution = view.findViewById(R.id.vCaution);
+        progressBar = view.findViewById(R.id.progressBar);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -84,7 +89,7 @@ public class TabTransaksi extends Fragment {
         return view;
     }
 
-    String[] item = {"Pengembalian Buku", "Perpanjang"};
+    String[] item = {"dipinjam", "dikembalikan"};
     private void rcKlik() {
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(view.getContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -189,12 +194,13 @@ public class TabTransaksi extends Fragment {
             @Override
             public void onClick(View v) {
                 FilterDialog filterDialog = new FilterDialog();
-                filterDialog.show(getChildFragmentManager(), filterDialog.getTag());
+                filterDialog.show(getChildFragmentManager(), "FILTER_DIALOG");
             }
         });
     }
 
     private void tampilData() {
+        progressBar.setVisibility(View.VISIBLE);
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
                 Constants.URL_PEMINJAMAN,
@@ -206,24 +212,31 @@ public class TabTransaksi extends Fragment {
                             JSONObject jsonObject = new JSONObject(response);
                             jsonArray = jsonObject.getJSONArray("peminjaman");
 
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                data = jsonArray.getJSONObject(i);
+                            if (jsonArray.length() > 0){
+                                progressBar.setVisibility(View.GONE);
 
-                                String kode = data.getString("kode_pinjam");
-                                String nama = data.getString("nama");
-                                String buku = data.getString("judul_buku");
-                                String tgl_pinjam = data.getString("tgl_pinjam");
-                                String tgl_kembali = data.getString("tgl_kembali");
-                                String denda = data.getString("denda");
-                                String status = data.getString("status");
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    data = jsonArray.getJSONObject(i);
 
-                                Peminjaman peminjaman = new Peminjaman(kode, nama, buku, tgl_pinjam, tgl_kembali, denda, status);
-                                arrayList.add(peminjaman);
+                                    String kode = data.getString("kode_pinjam");
+                                    String nama = data.getString("nama");
+                                    String buku = data.getString("judul_buku");
+                                    String tgl_pinjam = data.getString("tgl_pinjam");
+                                    String tgl_kembali = data.getString("tgl_kembali");
+                                    String denda = data.getString("denda");
+                                    String status = data.getString("status");
+
+                                    Peminjaman peminjaman = new Peminjaman(kode, nama, buku, tgl_pinjam, tgl_kembali, denda, status);
+                                    arrayList.add(peminjaman);
+                                }
+                                PeminjamanAdapter peminjamanAdapter = new PeminjamanAdapter(arrayList);
+                                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
+                                recyclerView.setLayoutManager(layoutManager);
+                                recyclerView.setAdapter(peminjamanAdapter);
+                            } else {
+                                progressBar.setVisibility(View.GONE);
+                                vCaution.setVisibility(View.VISIBLE);
                             }
-                            PeminjamanAdapter peminjamanAdapter = new PeminjamanAdapter(arrayList);
-                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
-                            recyclerView.setLayoutManager(layoutManager);
-                            recyclerView.setAdapter(peminjamanAdapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();

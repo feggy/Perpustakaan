@@ -2,6 +2,8 @@ package com.spesialiskp.perpustakaan.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,10 +34,13 @@ public class LoginActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     String username, password;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login2);
+
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
         if (SharedPrefManager.getInstance(this).isLogin()) {
             finish();
@@ -44,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         etUser = findViewById(R.id.etIdAnggota);
-        etPass = findViewById(R.id.etNamaAnggota);
+        etPass = findViewById(R.id.etPass);
         btnLogin = findViewById(R.id.btnLogin);
 
         progressDialog = new ProgressDialog(this);

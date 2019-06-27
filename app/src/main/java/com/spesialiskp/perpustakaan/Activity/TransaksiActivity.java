@@ -2,24 +2,25 @@ package com.spesialiskp.perpustakaan.Activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.spesialiskp.perpustakaan.Adapter.AnggotaAdapter;
+import com.spesialiskp.perpustakaan.Adapter.PeminjamanAdapter;
 import com.spesialiskp.perpustakaan.Constants.Constants;
-import com.spesialiskp.perpustakaan.Models.Anggota;
+import com.spesialiskp.perpustakaan.Dialog.FilterDialog;
+import com.spesialiskp.perpustakaan.Models.Peminjaman;
 import com.spesialiskp.perpustakaan.R;
 import com.spesialiskp.perpustakaan.Volley.RequestHandler;
 
@@ -28,37 +29,28 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class AnggotaActivity extends AppCompatActivity {
+public class TransaksiActivity extends AppCompatActivity {
 
-    ProgressBar progressBar;
     RecyclerView recyclerView;
-    String id_anggota, nama, no_hp, alamat, tgl_masuk, tgl_on_kartu, tgl_off_kartu, foto;
-    ImageView foto_profil, ivEdit, ivDelete;
-    ArrayList<Anggota> anggotaArrayList;
-    AnggotaAdapter anggotaAdapter;
-    JSONObject data;
+    CardView fab;
     JSONArray jsonArray;
+    JSONObject data;
+    String start, end;
     LinearLayout vCaution;
-    FloatingActionButton fab;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_anggota);
+        setContentView(R.layout.fragment_tab_transaksi);
 
         recyclerView = findViewById(R.id.recyclerView);
-        progressBar = findViewById(R.id.progressBar);
-        foto_profil = findViewById(R.id.potoprofil);
+        fab = findViewById(R.id.fabTransaksi);
         vCaution = findViewById(R.id.vCaution);
-
-        fab = findViewById(R.id.fabTambah);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), TambahAnggotaActivity.class));
-            }
-        });
+        progressBar = findViewById(R.id.progressBar);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -72,50 +64,69 @@ public class AnggotaActivity extends AppCompatActivity {
             }
         });
 
+        start = getIntent().getStringExtra("start");
+        end = getIntent().getStringExtra("end");
+
         tampilData();
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FilterDialog filterDialog = new FilterDialog();
+                filterDialog.show(getSupportFragmentManager(), "FILTER_DIALOG");
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     private void tampilData() {
         progressBar.setVisibility(View.VISIBLE);
-
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
-                Constants.URL_LIHAT_ANGGOTA,
+                Constants.URL_PEMINJAMAN,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        progressBar.setVisibility(View.GONE);
                         try {
-                            anggotaArrayList = new ArrayList<>();
+                            ArrayList arrayList = new ArrayList();
                             JSONObject jsonObject = new JSONObject(response);
-                            jsonArray = jsonObject.getJSONArray("anggota");
+                            jsonArray = jsonObject.getJSONArray("peminjaman");
 
                             if (jsonArray.length() > 0){
+                                progressBar.setVisibility(View.GONE);
+
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     data = jsonArray.getJSONObject(i);
 
-                                    id_anggota = data.getString("id_anggota");
-                                    nama = data.getString("nama");
-                                    foto = data.getString("foto");
-                                    no_hp = data.getString("no_hp");
-                                    alamat = data.getString("alamat");
-                                    tgl_masuk = data.getString("tgl_masuk");
-                                    tgl_on_kartu = data.getString("tgl_on_kartu");
-                                    tgl_off_kartu = data.getString("tgl_off_kartu");
+                                    String kode = data.getString("kode_pinjam");
+                                    String nama = data.getString("nama");
+                                    String buku = data.getString("judul_buku");
+                                    String tgl_pinjam = data.getString("tgl_pinjam");
+                                    String tgl_kembali = data.getString("tgl_kembali");
+                                    String denda = data.getString("denda");
+                                    String status = data.getString("status");
 
-                                    Anggota anggota = new Anggota(id_anggota, nama, foto, no_hp, alamat, tgl_masuk, tgl_on_kartu, tgl_off_kartu);
-                                    anggotaArrayList.add(anggota);
+                                    Peminjaman peminjaman = new Peminjaman(kode, nama, buku, tgl_pinjam, tgl_kembali, denda, status);
+                                    arrayList.add(peminjaman);
                                 }
-                                anggotaAdapter = new AnggotaAdapter(anggotaArrayList);
+                                PeminjamanAdapter peminjamanAdapter = new PeminjamanAdapter(arrayList);
                                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                                 recyclerView.setLayoutManager(layoutManager);
-                                recyclerView.setAdapter(anggotaAdapter);
+                                recyclerView.setAdapter(peminjamanAdapter);
                             } else {
                                 progressBar.setVisibility(View.GONE);
                                 vCaution.setVisibility(View.VISIBLE);
                             }
+
+
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
                         }
                     }
                 },
@@ -124,14 +135,18 @@ public class AnggotaActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getApplicationContext(), "Gagal terhubung ke server", Toast.LENGTH_LONG).show();
                     }
-                });
-        progressBar.setVisibility(View.INVISIBLE);
-        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
-    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(this, MainActivity.class));
+                params.put("start", start);
+                params.put("end", end);
+
+                return params;
+            }
+        };
+        RequestHandler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
 }

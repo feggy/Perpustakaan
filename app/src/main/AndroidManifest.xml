@@ -16,44 +16,58 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".Activity.TransaksiActivity"
+            android:label="Riwayat Transaksi"
+            android:parentActivityName=".Activity.MainActivity"/>
         <activity
             android:name=".Activity.ScanBarcodeActivity"
             android:screenOrientation="portrait"
-            tools:replace="screenOrientation"/>
+            tools:replace="screenOrientation"
+            android:parentActivityName=".Activity.MainActivity"/>
         <activity android:name=".Activity.PerpanjangActivity" />
         <activity
             android:name=".Activity.PeminjamanActivity"
             android:label="Form Peminjaman"
-            android:parentActivityName=".Activity.MainActivity" />
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activity.TambahBukuActivity"
             android:label="Form Tambah Buku"
-            android:parentActivityName=".Activity.MainActivity" />
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activity.UbahAnggotaActivity"
             android:label="Ubah Data Anggota"
-            android:parentActivityName=".Activity.AnggotaActivity" />
+            android:parentActivityName=".Activity.AnggotaActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activity.TambahAnggotaActivity"
             android:label="Tambah Anggota"
-            android:parentActivityName=".Activity.AnggotaActivity" />
+            android:parentActivityName=".Activity.AnggotaActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activity.AnggotaActivity"
             android:label="Anggota"
-            android:parentActivityName=".Activity.MainActivity" />
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activity.UbahPetugasActivity"
             android:label="Ubah Data Petugas"
-            android:parentActivityName=".Activity.PetugasActivity" />
+            android:parentActivityName=".Activity.PetugasActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activity.TambahPetugasActivity"
             android:label="Tambah Petugas"
-            android:parentActivityName=".Activity.PetugasActivity" />
+            android:parentActivityName=".Activity.PetugasActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activity.PetugasActivity"
             android:label="Petugas"
-            android:parentActivityName=".Activity.MainActivity" />
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
