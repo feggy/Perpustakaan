@@ -7,21 +7,25 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        android:layout_marginTop="5dp"
+        app:cardCornerRadius="8dp"
+        android:layout_marginTop="10dp"
         android:clickable="true"
-        android:focusableInTouchMode="true">
+        android:focusable="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:cardElevation="0.1dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:layout_gravity="center_vertical">
             <TextView
                 android:id="@+id/tvNomor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="100"
                 android:textSize="20dp"
-                android:textColor="#292929"/>
+                android:textColor="#292929"
+                android:paddingLeft="5dp"/>
 
             <TextView
                 android:id="@+id/tvNama"

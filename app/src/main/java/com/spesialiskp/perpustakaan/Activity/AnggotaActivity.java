@@ -77,20 +77,19 @@ public class AnggotaActivity extends AppCompatActivity {
 
     private void tampilData() {
         progressBar.setVisibility(View.VISIBLE);
-
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
                 Constants.URL_LIHAT_ANGGOTA,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        progressBar.setVisibility(View.GONE);
                         try {
                             anggotaArrayList = new ArrayList<>();
                             JSONObject jsonObject = new JSONObject(response);
                             jsonArray = jsonObject.getJSONArray("anggota");
 
                             if (jsonArray.length() > 0){
+                                progressBar.setVisibility(View.GONE);
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     data = jsonArray.getJSONObject(i);
 

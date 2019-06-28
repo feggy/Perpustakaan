@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ public class TabDashboard extends Fragment {
     View view;
     TextView tvJmlhAnggota, tvJmlhBuku, tvJmlhPeminjaman, tvJmlhKembali;
     ProgressBar progressBar;
+    LinearLayout vTampilan;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +47,7 @@ public class TabDashboard extends Fragment {
         tvJmlhPeminjaman = view.findViewById(R.id.tvJmlhPeminjaman);
         tvJmlhKembali = view.findViewById(R.id.tvJmlhKembali);
         progressBar = view.findViewById(R.id.progressBar);
+        vTampilan = view.findViewById(R.id.vTampilan);
 
         tampilData();
 
@@ -53,12 +56,14 @@ public class TabDashboard extends Fragment {
 
     private void tampilData() {
         progressBar.setVisibility(View.VISIBLE);
+        vTampilan.setVisibility(View.INVISIBLE);
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
                 Constants.URL_DASHBOARD,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        vTampilan.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                         try {
                             JSONObject jsonObject = new JSONObject(response);

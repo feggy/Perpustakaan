@@ -1,11 +1,13 @@
 package com.spesialiskp.perpustakaan.Activity.MainFragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +20,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.spesialiskp.perpustakaan.Activity.BukuDetailActivity;
 import com.spesialiskp.perpustakaan.Adapter.BukuAdapter;
 import com.spesialiskp.perpustakaan.Constants.Constants;
 import com.spesialiskp.perpustakaan.Models.Buku;
 import com.spesialiskp.perpustakaan.R;
+import com.spesialiskp.perpustakaan.Support.RecyclerItemClickListener;
 import com.spesialiskp.perpustakaan.Volley.RequestHandler;
 
 import org.json.JSONArray;
@@ -42,6 +46,8 @@ public class TabBuku extends Fragment {
     RecyclerView recyclerView;
     LinearLayout vCaution;
     ProgressBar progressBar;
+    JSONObject jsonObject;
+    JSONArray jsonArray;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,6 +73,7 @@ public class TabBuku extends Fragment {
         });*/
 
         tampilData();
+        klikItem();
 
         return view;
     }
@@ -82,8 +89,8 @@ public class TabBuku extends Fragment {
                     public void onResponse(String response) {
                         try {
                             ArrayList bukuArrayList = new ArrayList<>();
-                            JSONObject jsonObject = new JSONObject(response);
-                            JSONArray jsonArray = jsonObject.getJSONArray("buku");
+                            jsonObject = new JSONObject(response);
+                            jsonArray = jsonObject.getJSONArray("buku");
 
                             if (jsonArray.length() > 0){
                                 progressBar.setVisibility(View.GONE);
@@ -117,5 +124,43 @@ public class TabBuku extends Fragment {
                     }
                 });
         RequestHandler.getInstance(view.getContext()).addToRequestQueue(stringRequest);
+    }
+
+    private void klikItem() {
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                try {
+                    jsonObject = jsonArray.getJSONObject(position);
+                    Log.e("klikItem", jsonObject.toString());
+
+                    String kode = jsonObject.getString("kode_buku");
+                    String judul = jsonObject.getString("judul_buku");
+                    String pengarang = jsonObject.getString("pengarang");
+                    String penerbit = jsonObject.getString("penerbit");
+                    String tahun_buku = jsonObject.getString("tahun_buku");
+                    String jumlah_buku = jsonObject.getString("jumlah_buku");
+                    String jenis_buku = jsonObject.getString("jenis_buku");
+                    String lokasi_rak_buku = jsonObject.getString("lokasi_rak_buku");
+                    String qrcode = jsonObject.getString("qrcode");
+                    String tgl_masuk_buku = jsonObject.getString("tgl_masuk_buku");
+
+                    Intent i = new Intent(getContext(), BukuDetailActivity.class);
+                    i.putExtra("kode_buku", kode);
+                    i.putExtra("judul_buku", judul);
+                    i.putExtra("pengarang", pengarang);
+                    i.putExtra("penerbit", penerbit);
+                    i.putExtra("tahun_buku", tahun_buku);
+                    i.putExtra("jumlah_buku", jumlah_buku);
+                    i.putExtra("jenis_buku", jenis_buku);
+                    i.putExtra("lokasi_rak_buku", lokasi_rak_buku);
+                    i.putExtra("qrcode", qrcode);
+                    i.putExtra("tgl_masuk_buku", tgl_masuk_buku);
+                    startActivity(i);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }));
     }
 }
