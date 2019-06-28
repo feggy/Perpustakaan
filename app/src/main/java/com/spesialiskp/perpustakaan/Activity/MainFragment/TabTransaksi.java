@@ -89,7 +89,7 @@ public class TabTransaksi extends Fragment {
         return view;
     }
 
-    String[] item = {"dipinjam", "dikembalikan"};
+    String[] item = {"Proses", "Selesai"};
     private void rcKlik() {
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(view.getContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -181,7 +181,7 @@ public class TabTransaksi extends Fragment {
                 Map<String, String> params = new HashMap<>();
 
                 params.put("kode_pinjam", id);
-                params.put("status", "dikembalikan");
+                params.put("status", "Selesai");
 
                 return params;
             }

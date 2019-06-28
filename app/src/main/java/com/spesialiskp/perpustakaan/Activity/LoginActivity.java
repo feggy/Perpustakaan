@@ -1,9 +1,13 @@
 package com.spesialiskp.perpustakaan.Activity;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -41,6 +45,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login2);
 
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+
+        int ALL_PERMISSIONS = 101;
+        final String[] permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+        ActivityCompat.requestPermissions(this, permissions, ALL_PERMISSIONS);
 
         if (SharedPrefManager.getInstance(this).isLogin()) {
             finish();

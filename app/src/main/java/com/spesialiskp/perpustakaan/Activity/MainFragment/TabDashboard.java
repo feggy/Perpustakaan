@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -30,6 +32,7 @@ public class TabDashboard extends Fragment {
 
     View view;
     TextView tvJmlhAnggota, tvJmlhBuku, tvJmlhPeminjaman, tvJmlhKembali;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +44,7 @@ public class TabDashboard extends Fragment {
         tvJmlhBuku = view.findViewById(R.id.tvJmlhBuku);
         tvJmlhPeminjaman = view.findViewById(R.id.tvJmlhPeminjaman);
         tvJmlhKembali = view.findViewById(R.id.tvJmlhKembali);
+        progressBar = view.findViewById(R.id.progressBar);
 
         tampilData();
 
@@ -48,12 +52,14 @@ public class TabDashboard extends Fragment {
     }
 
     private void tampilData() {
+        progressBar.setVisibility(View.VISIBLE);
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
                 Constants.URL_DASHBOARD,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        progressBar.setVisibility(View.GONE);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             tvJmlhAnggota.setText(jsonObject.getString("anggota"));
@@ -68,7 +74,7 @@ public class TabDashboard extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Toast.makeText(view.getContext(), "Gagal terhubung ke server", Toast.LENGTH_LONG).show();
                     }
                 });
         RequestHandler.getInstance(view.getContext()).addToRequestQueue(stringRequest);

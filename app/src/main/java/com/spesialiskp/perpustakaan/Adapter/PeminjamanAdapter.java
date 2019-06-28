@@ -78,7 +78,7 @@ public class PeminjamanAdapter extends RecyclerView.Adapter<PeminjamanAdapter.Pe
             long sisa = hariIni.getTime() - hariKembali.getTime();
             sisahari = sisa/(1000*60*60*24);
 
-            if (sisahari > 0 && status.equals("dipinjam")){
+            if (sisahari > 0 && status.equals("Proses")){
                 denda = 500*Math.round(sisahari);
             } else {
                 denda = 0;
