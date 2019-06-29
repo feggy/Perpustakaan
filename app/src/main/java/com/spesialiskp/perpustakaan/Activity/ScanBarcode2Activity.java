@@ -4,14 +4,13 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.zxing.Result;
 import com.spesialiskp.perpustakaan.R;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class ScanBarcodeActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+public class ScanBarcode2Activity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     private String TAG = "Zxing";
     private ZXingScannerView mScannerView;
@@ -19,17 +18,13 @@ public class ScanBarcodeActivity extends AppCompatActivity implements ZXingScann
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_scan_barcode2);
+
         mScannerView = new ZXingScannerView(this);
-        setContentView(R.layout.activity_scan_barcode);
 
         mScannerView = findViewById(R.id.vScanner);
         mScannerView.setAutoFocus(true);
         mScannerView.startCamera();
-
-        /*IntentIntegrator intentIntegrator = new IntentIntegrator(this);
-        intentIntegrator.setPrompt("Arahkan kamera ke Barcode");
-        intentIntegrator.setOrientationLocked(false);
-        intentIntegrator.initiateScan();*/
     }
 
     @Override
@@ -57,32 +52,9 @@ public class ScanBarcodeActivity extends AppCompatActivity implements ZXingScann
         Bundle bundle = new Bundle();
         String hasilScan = rawResult.getText();
         bundle.putString("hasil_scan", hasilScan);
-        Intent i = new Intent(ScanBarcodeActivity.this, PeminjamanActivity.class);
+        Intent i = new Intent(ScanBarcode2Activity.this, PengembalianActivity.class);
         i.putExtras(bundle);
 //        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
     }
-
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() == null) {
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
-                Intent i = new Intent(this, PeminjamanActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(i);
-            } else {
-                Bundle bundle = new Bundle();
-                String hasilScan = result.getContents();
-                bundle.putString("hasil_scan", hasilScan);
-                Intent i = new Intent(ScanBarcodeActivity.this, PeminjamanActivity.class);
-                i.putExtras(bundle);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(i);
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }*/
 }

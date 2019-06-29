@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_peminjaman) {
             startActivity(new Intent(this, PeminjamanActivity.class));
         } else if (id == R.id.nav_pengembalian) {
-
+            startActivity(new Intent(this, PengembalianActivity.class));
         } else if (id == R.id.nav_perpanjang) {
             startActivity(new Intent(this, PerpanjangActivity.class));
         } else if (id == R.id.nav_buku) {

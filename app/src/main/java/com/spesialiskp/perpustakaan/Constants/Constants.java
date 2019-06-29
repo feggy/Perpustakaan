@@ -21,4 +21,6 @@ public class Constants {
     public static final String URL_PENGEMBALIAN = ROOT_URL+"pengembalian.php";
     public static final String URL_PERPANJANG = ROOT_URL+"perpanjang.php";
     public static final String URL_DASHBOARD = ROOT_URL+"lihat_dashboard.php";
+    public static final String URL_LIHAT_PEMINJAMAN = ROOT_URL+"lihat_peminjaman.php";
+    public static final String URL_LIHAT_PEMINJAMAN_DETAIL = ROOT_URL+"lihat_detail_peminjaman.php";
 }

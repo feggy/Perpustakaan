@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ import com.spesialiskp.perpustakaan.Constants.Constants;
 import com.spesialiskp.perpustakaan.R;
 import com.spesialiskp.perpustakaan.Volley.RequestHandler;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,12 +33,13 @@ import java.util.Map;
 
 public class PeminjamanActivity extends AppCompatActivity {
 
-    EditText etKodeBuku, etJudulBuku, etIdAnggota;
-    String kodeBuku, hasilScan;
+    EditText etKodeBuku, etJudulBuku, etIdAnggota, etKodePinjam;
+    String hasilScan, kodePinjam;
     String postKodeBuku, postIdAnggota;
-    Button btnSubmit, btnCek;
+    Button btnSubmit;
     RelativeLayout vKodeBuku;
     private int RCode = 111;
+    int banyakTransaksi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class PeminjamanActivity extends AppCompatActivity {
         etIdAnggota = findViewById(R.id.etIdAnggota);
         btnSubmit = findViewById(R.id.btnSubmit);
         vKodeBuku = findViewById(R.id.vKodebuku);
+        etKodePinjam = findViewById(R.id.etKodePinjam);
 //        btnCek = findViewById(R.id.btn_cek);
 
         etKodeBuku.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +67,7 @@ public class PeminjamanActivity extends AppCompatActivity {
             }
         });
 
+        jumlahBuku();
         cekJudulBuku();
 
 //        etTglKembali.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +124,40 @@ public class PeminjamanActivity extends AppCompatActivity {
                 == PackageManager.PERMISSION_GRANTED) {
             startActivity(new Intent(PeminjamanActivity.this, ScanBarcodeActivity.class));
         }
+    }
+
+    private void jumlahBuku() {
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                Constants.URL_LIHAT_PEMINJAMAN,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            JSONArray jsonArray = jsonObject.getJSONArray("peminjaman");
+                            Log.e("peminjaman", jsonArray.toString());
+                            banyakTransaksi = jsonArray.length();
+                            if (banyakTransaksi < 10){
+                                kodePinjam = "TR10100"+Integer.toString(banyakTransaksi+1);
+                            } else {
+                                kodePinjam = "TR1010"+Integer.toString(banyakTransaksi+1);
+                            }
+                            etKodePinjam.setText(kodePinjam);
+                            Log.e("Kode Pinjam",  ""+kodePinjam);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Gagal menambah data", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "Gagal terhubung ke server", Toast.LENGTH_LONG).show();
+                    }
+                });
+        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 
     private void cekJudulBuku() {
@@ -203,6 +242,7 @@ public class PeminjamanActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
 
+                params.put("kode_pinjam", kodePinjam);
                 params.put("id_anggota", postIdAnggota);
                 params.put("kode_buku", postKodeBuku);
 
@@ -215,5 +255,6 @@ public class PeminjamanActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 }

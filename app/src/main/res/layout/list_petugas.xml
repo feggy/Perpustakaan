@@ -11,7 +11,7 @@
         android:layout_marginTop="10dp"
         android:clickable="true"
         android:focusable="true"
-        android:background="?attr/selectableItemBackgroundBorderless"
+        android:background="?android:attr/selectableItemBackground"
         app:cardElevation="0.1dp">
         <RelativeLayout
             android:layout_width="match_parent"

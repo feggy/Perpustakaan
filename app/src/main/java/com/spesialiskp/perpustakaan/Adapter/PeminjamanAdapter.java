@@ -41,7 +41,7 @@ public class PeminjamanAdapter extends RecyclerView.Adapter<PeminjamanAdapter.Pe
     @Override
     public void onBindViewHolder(@NonNull PeminjamanAdapter.PeminjamanAdapterHolder peminjamanAdapterHolder, int i) {
 
-        peminjamanAdapterHolder.kode_pinjam.setText("#"+dataList.get(i).getKode_peminjaman());
+        peminjamanAdapterHolder.kode_pinjam.setText(dataList.get(i).getKode_peminjaman());
         peminjamanAdapterHolder.nama.setText(dataList.get(i).getNama());
         peminjamanAdapterHolder.buku.setText(dataList.get(i).getBuku());
 
@@ -91,14 +91,14 @@ public class PeminjamanAdapter extends RecyclerView.Adapter<PeminjamanAdapter.Pe
 
         peminjamanAdapterHolder.tgl_pinjam.setText(tgl_pinjam);
         peminjamanAdapterHolder.tgl_kembali.setText(tgl_kembali);
-        peminjamanAdapterHolder.denda.setText("Denda\nRp. "+denda+"\n\nTerlambat "+(int) sisahari+" hari");
+        peminjamanAdapterHolder.denda.setText("Denda\nRp. "+denda+"\n\nTelat "+(int) sisahari+" hari");
         peminjamanAdapterHolder.status.setText(status);
 
         if (denda == 0) {
             peminjamanAdapterHolder.denda.setVisibility(View.GONE);
         }
 
-        if (status.equals("dikembalikan")) {
+        if (status.equals("Selesai")) {
             peminjamanAdapterHolder.cardView.setCardBackgroundColor(peminjamanAdapterHolder.itemView.getResources().getColor(R.color.green));
         }
     }

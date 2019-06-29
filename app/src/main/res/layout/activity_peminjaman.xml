@@ -8,54 +8,37 @@
     android:padding="10dp"
     tools:context="com.spesialiskp.perpustakaan.Activity.PeminjamanActivity">
 
-    <TextView
+    <!--<TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="22dp"
         android:textColor="#292929"
         android:textStyle="bold"
-        android:text="FORM PEMINJAMAN"/>
+        android:text="FORM PEMINJAMAN"/>-->
 
-    <!--<RelativeLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="15dp">-->
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="#292929"-->
-            <!--android:textSize="18dp"-->
-            <!--android:layout_marginLeft="5dp"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:text="Kode Pinjam"/>-->
-        <!--<EditText-->
-            <!--android:id="@+id/etKodePinjam"-->
-            <!--android:layout_width="250dp"-->
-            <!--android:layout_marginLeft="115dp"-->
-            <!--android:backgroundTint="#292929"-->
-            <!--android:layout_height="wrap_content" />-->
-    <!--</RelativeLayout>-->
-
-    <!--<RelativeLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="10dp">-->
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="#292929"-->
-            <!--android:textSize="18dp"-->
-            <!--android:layout_marginLeft="5dp"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:text="Kode Buku"/>-->
-        <!--<Button-->
-            <!--android:id="@+id/btn_cek"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="115dp"-->
-            <!--android:text="cek"/>-->
-    <!--</RelativeLayout>-->
+    <RelativeLayout
+        android:id="@+id/vKodePinjam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#292929"
+            android:textSize="18dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:text="Kode Pinjam"/>
+        <EditText
+            android:id="@+id/etKodePinjam"
+            android:layout_width="250dp"
+            android:layout_marginLeft="115dp"
+            android:backgroundTint="#292929"
+            android:editable="false"
+            android:clickable="false"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/vKodebuku"
@@ -76,7 +59,8 @@
             android:layout_marginLeft="115dp"
             android:backgroundTint="#292929"
             android:editable="false"
-            android:clickable="false"
+            android:clickable="true"
+            android:focusable="false"
             android:layout_height="wrap_content" />
     </RelativeLayout>
 

@@ -19,77 +19,94 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Activity.ScanBarcode2Activity"
+            android:label="Scan QR Peminjaman"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
+        <activity
+            android:name=".Activity.PengembalianActivity"
+            android:label="Pengembalian"
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
+        <activity
+            android:name=".Activity.TransaksiDetailActivity"
+            android:configChanges="orientation"
+            android:label="Detail Peminjaman"
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Activity.BukuDetailActivity"
+            android:configChanges="orientation"
             android:label="Detail Buku"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.TransaksiActivity"
+            android:configChanges="orientation"
             android:label="Riwayat Transaksi"
             android:parentActivityName=".Activity.MainActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.ScanBarcodeActivity"
+            android:configChanges="orientation"
             android:parentActivityName=".Activity.MainActivity"
             android:screenOrientation="portrait"
-            tools:replace="screenOrientation"
-            android:configChanges="orientation"/>
+            tools:replace="screenOrientation" />
         <activity android:name=".Activity.PerpanjangActivity" />
         <activity
             android:name=".Activity.PeminjamanActivity"
+            android:configChanges="orientation"
             android:label="Form Peminjaman"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.TambahBukuActivity"
+            android:configChanges="orientation"
             android:label="Form Tambah Buku"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.UbahAnggotaActivity"
+            android:configChanges="orientation"
             android:label="Ubah Data Anggota"
             android:parentActivityName=".Activity.AnggotaActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.TambahAnggotaActivity"
+            android:configChanges="orientation"
             android:label="Tambah Anggota"
             android:parentActivityName=".Activity.AnggotaActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.AnggotaActivity"
+            android:configChanges="orientation"
             android:label="Anggota"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.UbahPetugasActivity"
+            android:configChanges="orientation"
             android:label="Ubah Data Petugas"
             android:parentActivityName=".Activity.PetugasActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.TambahPetugasActivity"
+            android:configChanges="orientation"
             android:label="Tambah Petugas"
             android:parentActivityName=".Activity.PetugasActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.PetugasActivity"
+            android:configChanges="orientation"
             android:label="Petugas"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation"
             android:screenOrientation="portrait"
-            android:configChanges="orientation">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -98,10 +115,10 @@
         </activity>
         <activity
             android:name=".Activity.MainActivity"
+            android:configChanges="orientation"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
-            android:configChanges="orientation"/>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
