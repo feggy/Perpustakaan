@@ -108,7 +108,7 @@ public class BukuDetailActivity extends AppCompatActivity {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
         File wallpaperDirectory = new File(
-                Environment.getExternalStorageDirectory() + "/RALibrary/Buku");
+                Environment.getExternalStorageDirectory() + "/RALibrary/RA_Buku");
         // have the object build the directory structure, if needed.
 
         if (!wallpaperDirectory.exists()) {

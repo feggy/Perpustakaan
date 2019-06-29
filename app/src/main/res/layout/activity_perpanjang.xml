@@ -7,40 +7,243 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    android:background="#F5F5F5"
     tools:context="com.spesialiskp.perpustakaan.Activity.PerpanjangActivity">
 
-    <TextView
-        android:id="@+id/tv1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="DAFTAR PEMINJAMAN"
-        android:textAlignment="center"
-        android:textSize="22dp"
-        android:textStyle="bold"
-        android:textColor="#292929"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/tv1"/>
-
-    <ProgressBar
-        android:id="@+id/progressBar"
+    <RelativeLayout
+        android:id="@+id/vKodePinjam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#292929"
+            android:textSize="18dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:text="Kode Pinjam"/>
+        <EditText
+            android:id="@+id/etKodePinjam"
+            android:layout_width="250dp"
+            android:layout_marginLeft="115dp"
+            android:backgroundTint="#292929"
+            android:editable="false"
+            android:clickable="false"
+            android:layout_height="wrap_content"
+            android:hint="Klik dan scan QR Code"/>
+    </RelativeLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabTambah"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/vDetail"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:backgroundTint="@color/colorPrimary"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/ic_person_add_black_24dp"/>
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:visibility="gone"
+        android:layout_below="@+id/vKodePinjam">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:text="Detail Transaksi"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/overlay_dark_70"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="Nama"
+                android:textSize="16sp"
+                android:textColor="@color/overlay_dark_70"/>
+            <TextView
+                android:id="@+id/vNama"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nama (id: 1)"
+                android:textSize="16sp"
+                android:textColor="@color/overlay_dark_70"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="Kode Buku"
+                android:textSize="16sp"
+                android:textColor="@color/overlay_dark_70"/>
+            <TextView
+                android:id="@+id/vKodeBuku"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Buku"
+                android:textSize="16sp"
+                android:textColor="@color/overlay_dark_70"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="Judul Buku"
+                android:textSize="16sp"
+                android:textColor="@color/overlay_dark_70"/>
+            <TextView
+                android:id="@+id/vJudulBuku"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Judul Buku"
+                android:textSize="16sp"
+                android:textColor="@color/overlay_dark_70"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="Tgl Pinjam"
+                android:textSize="16sp"
+                android:textColor="@color/overlay_dark_70"/>
+            <TextView
+                android:id="@+id/vtglPinjam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="01 Januari 2019"
+                android:textSize="16sp"
+                android:textColor="@color/overlay_dark_70"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="Tgl Kembali"
+                android:textSize="16sp"
+                android:textColor="@color/overlay_dark_70"/>
+            <TextView
+                android:id="@+id/vTglKembali"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="01 Januari 2019"
+                android:textSize="16sp"
+                android:textColor="@color/overlay_dark_70"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="Lama Telat"
+                android:textSize="16sp"
+                android:textColor="@color/overlay_dark_70"/>
+            <TextView
+                android:id="@+id/vTelat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="0 hari"
+                android:textSize="16sp"
+                android:textColor="@color/overlay_dark_70"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="Denda"
+                android:textSize="16sp"
+                android:textColor="@color/overlay_dark_70"/>
+            <TextView
+                android:id="@+id/vDenda"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Rp. 0"
+                android:textSize="16sp"
+                android:textColor="@color/overlay_dark_70"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/vPerpanjang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#292929"
+                android:textSize="18dp"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:text="Hingga tgl"/>
+            <EditText
+                android:id="@+id/etPerpanjang"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="115dp"
+                android:backgroundTint="#292929"
+                android:editable="false"
+                android:clickable="false"
+                android:focusable="false"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:text="perpanjang"
+                android:background="@color/colorPrimary"
+                android:textColor="#FFF" />
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>

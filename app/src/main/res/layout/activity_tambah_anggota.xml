@@ -43,7 +43,8 @@
                     android:layout_marginLeft="95dp"
                     android:backgroundTint="#292929"
                     android:layout_height="wrap_content"
-                    android:hint="001"/>
+                    android:editable="false"
+                    android:clickable="false"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -180,7 +181,6 @@
                     android:clickable="true"
                     android:focusable="false"
                     android:editable="false"
-                    android:hint="17-03-2019"
                     android:inputType="datetime"/>
             </RelativeLayout>
 

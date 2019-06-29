@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +22,7 @@ import com.spesialiskp.perpustakaan.Adapter.AnggotaAdapter;
 import com.spesialiskp.perpustakaan.Constants.Constants;
 import com.spesialiskp.perpustakaan.Models.Anggota;
 import com.spesialiskp.perpustakaan.R;
+import com.spesialiskp.perpustakaan.Support.RecyclerItemClickListener;
 import com.spesialiskp.perpustakaan.Volley.RequestHandler;
 
 import org.json.JSONArray;
@@ -51,8 +53,10 @@ public class AnggotaActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         foto_profil = findViewById(R.id.potoprofil);
         vCaution = findViewById(R.id.vCaution);
-
         fab = findViewById(R.id.fabTambah);
+
+        tampilData();
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,11 +76,32 @@ public class AnggotaActivity extends AppCompatActivity {
             }
         });
 
-        tampilData();
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                try {
+                    JSONObject jsonObject = jsonArray.getJSONObject(position);
+                    Log.e("klikItem", jsonObject.toString());
+
+                    Intent i = new Intent(AnggotaActivity.this, AnggotaDetailActivity.class);
+                    i.putExtra("id_anggota", jsonObject.getString("id_anggota"));
+                    i.putExtra("nama", jsonObject.getString("nama"));
+                    i.putExtra("no_hp", jsonObject.getString("no_hp"));
+                    i.putExtra("alamat", jsonObject.getString("alamat"));
+                    i.putExtra("tgl_masuk", jsonObject.getString("tgl_masuk"));
+                    i.putExtra("tgl_on_kartu", jsonObject.getString("tgl_on_kartu"));
+                    i.putExtra("tgl_off_kartu", jsonObject.getString("tgl_off_kartu"));
+                    i.putExtra("foto", jsonObject.getString("foto"));
+                    startActivity(i);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }));
+
     }
 
     private void tampilData() {
-        progressBar.setVisibility(View.VISIBLE);
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
                 Constants.URL_LIHAT_ANGGOTA,

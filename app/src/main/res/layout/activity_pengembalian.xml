@@ -34,7 +34,8 @@
             android:backgroundTint="#292929"
             android:editable="false"
             android:clickable="false"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="Klik dan scan QR Code"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -208,14 +209,21 @@
                 android:textSize="16sp"
                 android:textColor="@color/overlay_dark_70"/>
         </LinearLayout>
-        <Button
-            android:id="@+id/btnSubmit"
-            android:layout_width="200dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
-            android:text="submit"
-            android:background="@color/colorPrimary"
-            android:textColor="#FFF" />
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:text="Selesai"
+                android:background="@color/colorPrimary"
+                android:textColor="#FFF" />
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

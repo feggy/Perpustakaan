@@ -34,20 +34,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class TransaksiDetailActivity extends AppCompatActivity {
+public class AnggotaDetailActivity extends AppCompatActivity {
 
-    TextView vNama, vJudulBuku, vKodeBuku, vStatus, vTglPinjam, vTglKembali, vKodePinjam;
-    ImageView vQrCode;
-    Button btnSave;
+    TextView vNama, vAlamat, vNoHp, vIdAnggota, vTglMasuk, vTglBerakhir;
+    ImageView vQrcode;
+    Button vSave;
     RelativeLayout vContent;
-    LinearLayout progressBar;
-    String kode_pinjam, id_anggota, kode_buku, tgl_pinjam, tgl_kembali, tgl_perpanjang, status, denda, nama, judul_buku;
+    String Nama, Alamat, NoHp, IdAnggota, TglMasuk, TglBerakhir;
     public final static int QRcodeWidth = 500;
+    LinearLayout progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transaksi_detail);
+        setContentView(R.layout.activity_anggota_detail);
 
         init();
     }
@@ -59,40 +59,39 @@ public class TransaksiDetailActivity extends AppCompatActivity {
     }
 
     private void initUI() {
-        vNama.setText(nama+" (id: "+id_anggota+")");
-        vJudulBuku.setText(judul_buku);
-        vKodePinjam.setText("Kode Pinjam: "+kode_pinjam);
-        vKodeBuku.setText("Kode buku: "+kode_buku);
-        vStatus.setText("Status: "+status);
+        vNama.setText(Nama);
+        vAlamat.setText(Alamat);
+        vNoHp.setText(NoHp);
+        vIdAnggota.setText(": "+IdAnggota);
 
         Locale locale = new Locale("id", "ID");
         SimpleDateFormat myDate = new SimpleDateFormat("yyyy-MM-dddd");
         Date tglPinjam = null;
         Date tglKembali = null;
         try {
-            tglPinjam = myDate.parse(tgl_pinjam);
-            tglKembali = myDate.parse(tgl_kembali);
+            tglPinjam = myDate.parse(TglMasuk);
+            tglKembali = myDate.parse(TglBerakhir);
         } catch (ParseException e) {
             e.printStackTrace();
         }
         SimpleDateFormat newDate = new SimpleDateFormat("dd MMM yyyy", locale);
-        vTglPinjam.setText("Tgl pinjam: "+newDate.format(tglPinjam));
-        vTglKembali.setText("Tgl kembali: "+newDate.format(tglKembali));
+        vTglMasuk.setText(": "+newDate.format(tglPinjam));
+        vTglBerakhir.setText(": "+newDate.format(tglKembali));
 
         try {
-            Bitmap bitmap = TextToImageEncode(kode_pinjam);
-            vQrCode.setImageBitmap(bitmap);
+            Bitmap bitmap = TextToImageEncode(IdAnggota);
+            vQrcode.setImageBitmap(bitmap);
         } catch (WriterException e) {
             e.printStackTrace();
         }
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        vSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         == PackageManager.PERMISSION_DENIED) {
-                    ActivityCompat.requestPermissions(TransaksiDetailActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 101);
+                    ActivityCompat.requestPermissions(AnggotaDetailActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 101);
                     progressBar.setVisibility(View.GONE);
                 } else {
                     Bitmap bitmap = viewToBitmap(vContent);
@@ -108,30 +107,24 @@ public class TransaksiDetailActivity extends AppCompatActivity {
     private void initData() {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
-            kode_pinjam = bundle.getString("kode_pinjam");
-            id_anggota = bundle.getString("id_anggota");
-            kode_buku = bundle.getString("kode_buku");
-            tgl_pinjam = bundle.getString("tgl_pinjam");
-            tgl_kembali = bundle.getString("tgl_kembali");
-            tgl_perpanjang = bundle.getString("tgl_perpanjang");
-            status = bundle.getString("status");
-            denda = bundle.getString("denda");
-            nama = bundle.getString("nama");
-            judul_buku = bundle.getString("judul_buku");
+            Nama = bundle.getString("nama");
+            Alamat = bundle.getString("alamat");
+            NoHp = bundle.getString("no_hp");
+            IdAnggota = bundle.getString("id_anggota");
+            TglMasuk = bundle.getString("tgl_on_kartu");
+            TglBerakhir = bundle.getString("tgl_off_kartu");
         }
-
     }
 
     private void initView() {
         vNama = findViewById(R.id.vNama);
-        vJudulBuku = findViewById(R.id.vJudulBuku);
-        vKodeBuku = findViewById(R.id.vKodeBuku);
-        vKodePinjam = findViewById(R.id.vKodePinjam);
-        vStatus = findViewById(R.id.vStatus);
-        vTglPinjam = findViewById(R.id.vtglPinjam);
-        vTglKembali = findViewById(R.id.vTglKembali);
-        vQrCode = findViewById(R.id.vQrcode);
-        btnSave = findViewById(R.id.vSave);
+        vAlamat = findViewById(R.id.vAlamat);
+        vNoHp = findViewById(R.id.vNoHp);
+        vIdAnggota = findViewById(R.id.vIdAnggota);
+        vTglMasuk = findViewById(R.id.vTglMasuk);
+        vTglBerakhir = findViewById(R.id.vTglBerakhir);
+        vQrcode = findViewById(R.id.vQrcode);
+        vSave = findViewById(R.id.vSave);
         vContent = findViewById(R.id.vContent);
         progressBar = findViewById(R.id.progressBar);
     }
@@ -181,7 +174,7 @@ public class TransaksiDetailActivity extends AppCompatActivity {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
         File wallpaperDirectory = new File(
-                Environment.getExternalStorageDirectory() + "/RALibrary/RA_Peminjaman");
+                Environment.getExternalStorageDirectory() + "/RALibrary/RA_Anggota");
         // have the object build the directory structure, if needed.
 
         if (!wallpaperDirectory.exists()) {
@@ -190,7 +183,7 @@ public class TransaksiDetailActivity extends AppCompatActivity {
         }
 
         try {
-            File f = new File(wallpaperDirectory, kode_pinjam+".jpg");
+            File f = new File(wallpaperDirectory, IdAnggota+".jpg");
             f.createNewFile();   //give read write permission
             FileOutputStream fo = new FileOutputStream(f);
             fo.write(bytes.toByteArray());
@@ -206,6 +199,5 @@ public class TransaksiDetailActivity extends AppCompatActivity {
         }
 
         return "";
-
     }
 }

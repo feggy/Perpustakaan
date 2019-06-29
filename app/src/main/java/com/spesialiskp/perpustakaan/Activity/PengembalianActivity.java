@@ -56,12 +56,7 @@ public class PengembalianActivity extends AppCompatActivity {
 
     private void init() {
         initView();
-        initData();
         initUI();
-    }
-
-    private void initData() {
-
     }
 
     private void initUI() {
@@ -90,36 +85,6 @@ public class PengembalianActivity extends AppCompatActivity {
                 pengembalian();
             }
         });
-    }
-
-    private void pengembalian() {
-        StringRequest stringRequest = new StringRequest(
-                Request.Method.POST,
-                Constants.URL_PENGEMBALIAN,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(), "Buku kode peminjaman " + hasilScan + " berhasil dikembalikan", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getApplicationContext(), PengembalianActivity.class));
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "Gagal terhubung ke server", Toast.LENGTH_LONG).show();
-                    }
-                }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-
-                params.put("kode_pinjam", hasilScan);
-                params.put("status", "Selesai");
-
-                return params;
-            }
-        };
-        RequestHandler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
 
     private void initView() {
@@ -222,6 +187,36 @@ public class PengembalianActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
 
                 params.put("kode_pinjam", hasilScan);
+
+                return params;
+            }
+        };
+        RequestHandler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+    }
+
+    private void pengembalian() {
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                Constants.URL_PENGEMBALIAN,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(getApplicationContext(), "Buku kode peminjaman " + hasilScan + " berhasil dikembalikan", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(getApplicationContext(), PengembalianActivity.class));
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "Gagal terhubung ke server", Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("kode_pinjam", hasilScan);
+                params.put("status", "Selesai");
 
                 return params;
             }

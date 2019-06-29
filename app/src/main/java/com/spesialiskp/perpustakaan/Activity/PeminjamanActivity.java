@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,7 +53,6 @@ public class PeminjamanActivity extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnSubmit);
         vKodeBuku = findViewById(R.id.vKodebuku);
         etKodePinjam = findViewById(R.id.etKodePinjam);
-//        btnCek = findViewById(R.id.btn_cek);
 
         etKodeBuku.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,50 +63,24 @@ public class PeminjamanActivity extends AppCompatActivity {
                 } else {
                     startActivity(new Intent(PeminjamanActivity.this, ScanBarcodeActivity.class));
                 }
-//                kodeBuku = etKodeBuku.getText().toString().trim();
+            }
+        });
+
+        etIdAnggota.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA)
+                        == PackageManager.PERMISSION_DENIED) {
+                    ActivityCompat.requestPermissions(PeminjamanActivity.this, new String[] {Manifest.permission.CAMERA}, RCode);
+                } else {
+                    startActivity(new Intent(PeminjamanActivity.this, ScanBarcode4Activity.class));
+                }
             }
         });
 
         jumlahBuku();
         cekJudulBuku();
-
-//        etTglKembali.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Calendar calendar = Calendar.getInstance();
-//                int year = calendar.get(Calendar.YEAR);
-//                int month = calendar.get(Calendar.MONTH);
-//                int day = calendar.get(Calendar.DAY_OF_MONTH);
-//
-//                DatePickerDialog dialog = new DatePickerDialog(
-//                        PeminjamanActivity.this,
-//                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-//                        tgl_kembali,
-//                        year, month, day);
-//                dialog.show();
-//            }
-//        });
-//
-//        tgl_kembali = new DatePickerDialog.OnDateSetListener() {
-//            @Override
-//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//                if (month < 9){
-//                    bulanKembali = "0"+(month+1);
-//                } else {
-//                    bulanKembali = Integer.toString(month+1);
-//                }
-//
-//                if (dayOfMonth < 10){
-//                    tglKembali = "0"+(dayOfMonth);
-//                } else {
-//                    tglKembali = Integer.toString(dayOfMonth);
-//                }
-//
-//                postTglKembali = year+"-"+bulanKembali+"-"+tglKembali;
-//                String set = tglKembali+"-"+bulanKembali+"-"+year;
-//                etTglKembali.setText(set);
-//            }
-//        };
+        cekAnggota();
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,53 +134,103 @@ public class PeminjamanActivity extends AppCompatActivity {
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    private void cekAnggota(){
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            final String idAnggota = bundle.getString("hasil_scan2");
+            etIdAnggota.setText(idAnggota);
+
+            StringRequest stringRequest = new StringRequest(
+                    Request.Method.POST,
+                    Constants.URL_LIHAT_ANGGOTA,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                JSONArray jsonArray = jsonObject.getJSONArray("anggota");
+
+                                if (jsonArray.length() == 0){
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(PeminjamanActivity.this)
+                                            .setTitle("Oops")
+                                            .setMessage("Id anggota tidak terdaftar")
+                                            .setPositiveButton("OKE", null);
+                                    builder.show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    })
+            {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+
+                    params.put("id_anggota", idAnggota);
+
+                    return params;
+                }
+            };
+            RequestHandler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+        }
+    }
+
     private void cekJudulBuku() {
+        Bundle bundle = getIntent().getExtras();
         if (getIntent().getExtras() != null){
-            Bundle bundle = getIntent().getExtras();
             hasilScan = bundle.getString("hasil_scan");
             etKodeBuku.setText(hasilScan);
 
-            if (!hasilScan.equals("")) {
-                StringRequest stringRequest = new StringRequest(
-                        Request.Method.POST,
-                        Constants.URL_TRANSAKSI,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                try {
-                                    JSONObject jsonObject = new JSONObject(response);
-                                    String judul_buku = jsonObject.getString("judul_buku");
-                                    System.out.println(judul_buku);
-                                    if (!judul_buku.equals("null")){
-                                        etJudulBuku.setText(jsonObject.getString("judul_buku"));
-                                    } else {
-                                        Toast.makeText(getApplicationContext(), "Buku tidak ditemukan", Toast.LENGTH_LONG).show();
-                                        etJudulBuku.setText("");
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+            StringRequest stringRequest = new StringRequest(
+                    Request.Method.POST,
+                    Constants.URL_TRANSAKSI,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                String judul_buku = jsonObject.getString("judul_buku");
+                                System.out.println(judul_buku);
+                                if (!judul_buku.equals("null")){
+                                    etJudulBuku.setText(jsonObject.getString("judul_buku"));
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Buku tidak ditemukan", Toast.LENGTH_LONG).show();
+                                    etJudulBuku.setText("");
                                 }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                error.printStackTrace();
-                            }
-                        }) {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<>();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            error.printStackTrace();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
 
-                        params.put("kode_buku", hasilScan);
+                    params.put("kode_buku", hasilScan);
 
-                        return params;
-                    }
-                };
-                RequestHandler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
-            } else {
-                Toast.makeText(getApplicationContext(), "Harap isi terlebih dahulu kode buku untuk menampilkan judul buku", Toast.LENGTH_LONG).show();
-            }
+                    return params;
+                }
+            };
+            RequestHandler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+
+//            if (!hasilScan.equals("")) {
+//
+//            } else {
+//                Toast.makeText(getApplicationContext(), "Harap isi terlebih dahulu kode buku untuk menampilkan judul buku", Toast.LENGTH_LONG).show();
+//            }
         }
     }
 

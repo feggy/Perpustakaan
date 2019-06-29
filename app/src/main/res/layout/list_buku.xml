@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Kode Buku"
-                android:textSize="18dp"
+                android:textSize="14sp"
                 android:textColor="#292929"/>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -31,14 +31,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Judul:"
-                    android:textSize="18dp"
+                    android:textSize="14sp"
                     android:textColor="#292929"/>
                 <TextView
                     android:id="@+id/tvJudul"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Nama Judulnya"
-                    android:textSize="18dp"
+                    android:textSize="14sp"
                     android:textColor="#292929"
                     android:layout_marginLeft="55dp"/>
             </RelativeLayout>

@@ -18,17 +18,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".Activity.ScanBarcode4Activity"></activity>
+        <activity android:name=".Activity.AnggotaDetailActivity" />
+        <activity
+            android:name=".Activity.ScanBarcode3Activity"
+            android:configChanges="orientation"
+            android:label="Scan QR Transaksi"
+            android:screenOrientation="portrait"
+            tools:replace="screenOrientation" />
         <activity
             android:name=".Activity.ScanBarcode2Activity"
-            android:label="Scan QR Peminjaman"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation"/>
+            android:configChanges="orientation"
+            android:label="Scan QR Transaksi"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.PengembalianActivity"
+            android:configChanges="orientation"
             android:label="Pengembalian"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.TransaksiDetailActivity"
             android:configChanges="orientation"
@@ -50,10 +58,16 @@
         <activity
             android:name=".Activity.ScanBarcodeActivity"
             android:configChanges="orientation"
+            android:label="Scan Barcode"
+            android:screenOrientation="portrait"
+            tools:replace="screenOrientation" />
+        <activity
+            android:name=".Activity.PerpanjangActivity"
+            android:configChanges="orientation"
+            android:label="Perpanjang"
             android:parentActivityName=".Activity.MainActivity"
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
-        <activity android:name=".Activity.PerpanjangActivity" />
         <activity
             android:name=".Activity.PeminjamanActivity"
             android:configChanges="orientation"

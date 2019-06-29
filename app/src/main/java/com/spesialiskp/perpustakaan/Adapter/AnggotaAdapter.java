@@ -55,7 +55,7 @@ public class AnggotaAdapter extends RecyclerView.Adapter<AnggotaAdapter.AnggotaA
     String id_anggota, foto_anggota;
     @Override
     public void onBindViewHolder(@NonNull final AnggotaAdapter.AnggotaAdapterHolder anggotaAdapterHolder, final int i) {
-        anggotaAdapterHolder.id_anggota.setText("ID"+dataList.get(i).getId_anggota());
+        anggotaAdapterHolder.id_anggota.setText(dataList.get(i).getId_anggota());
         anggotaAdapterHolder.nama_anggota.setText(dataList.get(i).getNama_anggota());
         String fp = anggotaAdapterHolder.foto_anggota = dataList.get(i).getFoto_anggota();
         if (!fp.equals("")){
