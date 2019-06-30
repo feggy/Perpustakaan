@@ -191,7 +191,7 @@
                     android:textSize="18dp"
                     android:layout_marginLeft="5dp"
                     android:layout_centerVertical="true"
-                    android:text="Judul"/>
+                    android:text="Tanggal"/>
                 <TextView
                     android:id="@+id/tvTglMasuk"
                     android:layout_width="250dp"
