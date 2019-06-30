@@ -1,6 +1,7 @@
 package com.spesialiskp.perpustakaan.Activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -199,5 +200,11 @@ public class AnggotaDetailActivity extends AppCompatActivity {
         }
 
         return "";
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(getApplicationContext(), AnggotaActivity.class));
     }
 }

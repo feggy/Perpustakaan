@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -59,6 +60,7 @@ public class TabTransaksi extends Fragment {
     String id, tgl_kembali;
     LinearLayout vCaution;
     ProgressBar progressBar;
+    RelativeLayout vContent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,6 +72,7 @@ public class TabTransaksi extends Fragment {
         fab = view.findViewById(R.id.fabTransaksi);
         vCaution = view.findViewById(R.id.vCaution);
         progressBar = view.findViewById(R.id.progressBar);
+        vContent = view.findViewById(R.id.vContent);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -95,6 +98,9 @@ public class TabTransaksi extends Fragment {
             @Override
             public void onItemClick(final View view, final int position) {
                 try {
+                    vContent.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.VISIBLE);
+
                     jsonObject = jsonArray.getJSONObject(position);
                     Log.e("klikItem", jsonObject.toString());
 

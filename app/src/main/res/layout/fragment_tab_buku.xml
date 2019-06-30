@@ -6,31 +6,6 @@
     android:background="#F5F5F5"
     tools:context="com.spesialiskp.perpustakaan.Activity.MainFragment.TabBuku">
 
-    <!-- TODO: Update blank fragment layout -->
-    <!--<SearchView-->
-        <!--android:id="@+id/search"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:verticalScrollbarPosition="right"/>-->
-
-    <!--<EditText-->
-        <!--android:id="@+id/etSearch"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@drawable/background_search"-->
-        <!--android:hint="Buku apa yang di cari?"-->
-        <!--android:layout_margin="10dp"/>-->
-
-    <!--<android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabBuku"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_add_black_24dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"/>-->
-
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_centerHorizontal="true"

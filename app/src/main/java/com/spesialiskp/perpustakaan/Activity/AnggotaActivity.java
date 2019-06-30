@@ -1,8 +1,11 @@
 package com.spesialiskp.perpustakaan.Activity;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -30,6 +34,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AnggotaActivity extends AppCompatActivity {
 
@@ -76,28 +82,109 @@ public class AnggotaActivity extends AppCompatActivity {
             }
         });
 
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
+        /*recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
-                try {
-                    JSONObject jsonObject = jsonArray.getJSONObject(position);
-                    Log.e("klikItem", jsonObject.toString());
+            public void onItemClick(View view, final int position) {
+                String[] item = {"Lihat Detail", "Edit", "Hapus"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(AnggotaActivity.this)
+                        .setTitle("Kelola Anggota")
+                        .setItems(item, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    final JSONObject jsonObject = jsonArray.getJSONObject(position);
+                                    Log.e("klikItem", jsonObject.toString());
+                                    if (which == 0) {
+                                        Intent i = new Intent(AnggotaActivity.this, AnggotaDetailActivity.class);
+                                        i.putExtra("id_anggota", jsonObject.getString("id_anggota"));
+                                        i.putExtra("nama", jsonObject.getString("nama"));
+                                        i.putExtra("no_hp", jsonObject.getString("no_hp"));
+                                        i.putExtra("alamat", jsonObject.getString("alamat"));
+                                        i.putExtra("tgl_masuk", jsonObject.getString("tgl_masuk"));
+                                        i.putExtra("tgl_on_kartu", jsonObject.getString("tgl_on_kartu"));
+                                        i.putExtra("tgl_off_kartu", jsonObject.getString("tgl_off_kartu"));
+                                        i.putExtra("foto", jsonObject.getString("foto"));
+                                        startActivity(i);
 
-                    Intent i = new Intent(AnggotaActivity.this, AnggotaDetailActivity.class);
-                    i.putExtra("id_anggota", jsonObject.getString("id_anggota"));
-                    i.putExtra("nama", jsonObject.getString("nama"));
-                    i.putExtra("no_hp", jsonObject.getString("no_hp"));
-                    i.putExtra("alamat", jsonObject.getString("alamat"));
-                    i.putExtra("tgl_masuk", jsonObject.getString("tgl_masuk"));
-                    i.putExtra("tgl_on_kartu", jsonObject.getString("tgl_on_kartu"));
-                    i.putExtra("tgl_off_kartu", jsonObject.getString("tgl_off_kartu"));
-                    i.putExtra("foto", jsonObject.getString("foto"));
-                    startActivity(i);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                                    } else if (which == 1) {
+                                        Intent intent = new Intent(getApplicationContext(), UbahAnggotaActivity.class);
+                                        intent.putExtra("id", jsonObject.getString("id_anggota"));
+                                        intent.putExtra("nama", jsonObject.getString("nama"));
+                                        intent.putExtra("no_hp", jsonObject.getString("no_hp"));
+                                        intent.putExtra("alamat", jsonObject.getString("alamat"));
+                                        intent.putExtra("tgl_masuk", jsonObject.getString("tgl_masuk"));
+                                        intent.putExtra("tgl_on_kartu", jsonObject.getString("tgl_on_kartu"));
+                                        intent.putExtra("tgl_off_kartu", jsonObject.getString("tgl_off_kartu"));
+                                        intent.putExtra("foto", jsonObject.getString("foto"));
+
+                                        startActivity(intent);
+                                    } else if (which == 2){
+                                        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(AnggotaActivity.this)
+                                                .setTitle("Yakin?")
+                                                .setMessage("Ya untuk hapus")
+                                                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        try {
+                                                            final String id_anggota = jsonObject.getString("id_anggota");
+                                                            final String foto_anggota = jsonObject.getString("foto");
+
+                                                            StringRequest stringRequest = new StringRequest(
+                                                                    Request.Method.POST,
+                                                                    Constants.URL_HAPUS_ANGGOTA,
+                                                                    new Response.Listener<String>() {
+                                                                        @Override
+                                                                        public void onResponse(String response) {
+                                                                            try {
+                                                                                JSONObject jsonObject = new JSONObject(response);
+                                                                                if (jsonObject.getString("kode").equals("0")) {
+                                                                                    Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+                                                                                }
+                                                                            } catch (JSONException e) {
+                                                                                e.printStackTrace();
+                                                                                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    new Response.ErrorListener() {
+                                                                        @Override
+                                                                        public void onErrorResponse(VolleyError error) {
+                                                                            Toast.makeText(getApplicationContext(), "Gagal terhubung ke server", Toast.LENGTH_LONG).show();
+                                                                        }
+                                                                    }) {
+                                                                @Override
+                                                                protected Map<String, String> getParams() throws AuthFailureError {
+                                                                    Map<String, String> params = new HashMap<>();
+
+                                                                    params.put("id_anggota", id_anggota);
+                                                                    params.put("foto", foto_anggota);
+
+                                                                    return params;
+                                                                }
+                                                            };
+                                                            RequestHandler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+                                                            startActivity(new Intent(getApplicationContext(), AnggotaActivity.class));
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+                                                })
+                                                .setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+
+                                                    }
+                                                });
+                                        builder.show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                builder.show();
             }
-        }));
+        }));*/
 
     }
 
@@ -149,7 +236,6 @@ public class AnggotaActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Gagal terhubung ke server", Toast.LENGTH_LONG).show();
                     }
                 });
-        progressBar.setVisibility(View.INVISIBLE);
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 

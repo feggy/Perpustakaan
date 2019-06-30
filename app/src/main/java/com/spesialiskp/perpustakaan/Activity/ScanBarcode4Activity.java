@@ -50,7 +50,14 @@ public class ScanBarcode4Activity extends AppCompatActivity implements ZXingScan
         mScannerView.resumeCameraPreview(this);
 
         Bundle bundle = new Bundle();
+
+        Bundle bundleKodeBuku = getIntent().getExtras();
+        String kodeBuku = "";
+        if (bundleKodeBuku != null) {
+            kodeBuku = bundleKodeBuku.getString("kode_buku");
+        }
         String hasilScan2 = rawResult.getText();
+        bundle.putString("kode_buku", kodeBuku);
         bundle.putString("hasil_scan2", hasilScan2);
         Intent i = new Intent(ScanBarcode4Activity.this, PeminjamanActivity.class);
         i.putExtras(bundle);

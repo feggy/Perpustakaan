@@ -25,11 +25,6 @@ public class ScanBarcodeActivity extends AppCompatActivity implements ZXingScann
         mScannerView = findViewById(R.id.vScanner);
         mScannerView.setAutoFocus(true);
         mScannerView.startCamera();
-
-        /*IntentIntegrator intentIntegrator = new IntentIntegrator(this);
-        intentIntegrator.setPrompt("Arahkan kamera ke Barcode");
-        intentIntegrator.setOrientationLocked(false);
-        intentIntegrator.initiateScan();*/
     }
 
     @Override
@@ -55,6 +50,7 @@ public class ScanBarcodeActivity extends AppCompatActivity implements ZXingScann
         mScannerView.resumeCameraPreview(this);
 
         Bundle bundle = new Bundle();
+
         String hasilScan = rawResult.getText();
         bundle.putString("hasil_scan", hasilScan);
         Intent i = new Intent(ScanBarcodeActivity.this, PeminjamanActivity.class);
@@ -62,27 +58,4 @@ public class ScanBarcodeActivity extends AppCompatActivity implements ZXingScann
 //        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
     }
-
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() == null) {
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
-                Intent i = new Intent(this, PeminjamanActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(i);
-            } else {
-                Bundle bundle = new Bundle();
-                String hasilScan = result.getContents();
-                bundle.putString("hasil_scan", hasilScan);
-                Intent i = new Intent(ScanBarcodeActivity.this, PeminjamanActivity.class);
-                i.putExtras(bundle);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(i);
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }*/
 }

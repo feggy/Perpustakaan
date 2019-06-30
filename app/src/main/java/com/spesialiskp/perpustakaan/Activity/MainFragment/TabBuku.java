@@ -55,22 +55,9 @@ public class TabBuku extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_tab_buku, container, false);
 
-//        searchView = view.findViewById(R.id.search);
-//        searchView.setFocusable(true);
-//        searchView.setFocusableInTouchMode(true);
-//        searchView.setQueryHint("Cari buku apa?");
-
         recyclerView = view.findViewById(R.id.recyclerView);
         vCaution = view.findViewById(R.id.vCaution);
         progressBar = view.findViewById(R.id.progressBar);
-
-        /*FloatingActionButton fab = view.findViewById(R.id.fabBuku);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), TambahBukuActivity.class));
-            }
-        });*/
 
         tampilData();
         klikItem();
@@ -133,6 +120,9 @@ public class TabBuku extends Fragment {
                 try {
                     jsonObject = jsonArray.getJSONObject(position);
                     Log.e("klikItem", jsonObject.toString());
+
+                    progressBar.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
 
                     String kode = jsonObject.getString("kode_buku");
                     String judul = jsonObject.getString("judul_buku");

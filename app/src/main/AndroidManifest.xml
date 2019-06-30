@@ -18,8 +18,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.ScanBarcode4Activity"></activity>
-        <activity android:name=".Activity.AnggotaDetailActivity" />
+        <activity
+            android:name=".Activity.ScanBarcode4Activity"
+            android:configChanges="orientation"
+            android:label="Scan QR Transaksi"
+            android:screenOrientation="portrait"
+            tools:replace="screenOrientation"/>
+        <activity
+            android:name=".Activity.AnggotaDetailActivity"
+            android:label="Detail Anggota"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
+            android:parentActivityName=".Activity.AnggotaActivity"/>
         <activity
             android:name=".Activity.ScanBarcode3Activity"
             android:configChanges="orientation"

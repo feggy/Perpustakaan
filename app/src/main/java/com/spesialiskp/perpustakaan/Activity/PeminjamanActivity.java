@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -35,24 +37,54 @@ import java.util.Map;
 public class PeminjamanActivity extends AppCompatActivity {
 
     EditText etKodeBuku, etJudulBuku, etIdAnggota, etKodePinjam;
-    String hasilScan, kodePinjam;
+    String kodePinjam;
     String postKodeBuku, postIdAnggota;
     Button btnSubmit;
     RelativeLayout vKodeBuku;
+    LinearLayout lny1, lny2;
     private int RCode = 111;
     int banyakTransaksi;
+    ProgressBar progressBar;
+
+    String kodeBuku = "";
+    String idAnggota = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_peminjaman);
 
-        etKodeBuku = findViewById(R.id.etKodeBuku);
-        etJudulBuku = findViewById(R.id.etJudulBuku);
-        etIdAnggota = findViewById(R.id.etIdAnggota);
-        btnSubmit = findViewById(R.id.btnSubmit);
-        vKodeBuku = findViewById(R.id.vKodebuku);
-        etKodePinjam = findViewById(R.id.etKodePinjam);
+        init();
+        jumlahBuku();
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null){
+            kodeBuku = bundle.getString("hasil_scan");
+            if (kodeBuku != null){
+                cekJudulBuku();
+            } else {
+                kodeBuku = bundle.getString("kode_buku");
+                if (kodeBuku != null) {
+                    cekJudulBuku();
+                }
+            }
+
+            idAnggota = bundle.getString("hasil_scan2");
+            if (idAnggota != null){
+                cekAnggota();
+            }
+            Log.e("cekBundle", kodeBuku + " " + idAnggota);
+        }
+    }
+
+    private void init() {
+        initView();
+        initUI();
+    }
+
+    private void initUI() {
+
+        etKodeBuku.setText(kodeBuku);
 
         etKodeBuku.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,14 +105,12 @@ public class PeminjamanActivity extends AppCompatActivity {
                         == PackageManager.PERMISSION_DENIED) {
                     ActivityCompat.requestPermissions(PeminjamanActivity.this, new String[] {Manifest.permission.CAMERA}, RCode);
                 } else {
-                    startActivity(new Intent(PeminjamanActivity.this, ScanBarcode4Activity.class));
+                    Intent i = new Intent(PeminjamanActivity.this, ScanBarcode4Activity.class);
+                    i.putExtra("kode_buku", kodeBuku);
+                    startActivity(i);
                 }
             }
         });
-
-        jumlahBuku();
-        cekJudulBuku();
-        cekAnggota();
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +118,18 @@ public class PeminjamanActivity extends AppCompatActivity {
                 simpanData();
             }
         });
+    }
+
+    private void initView() {
+        etKodeBuku = findViewById(R.id.etKodeBuku);
+        etJudulBuku = findViewById(R.id.etJudulBuku);
+        etIdAnggota = findViewById(R.id.etIdAnggota);
+        btnSubmit = findViewById(R.id.btnSubmit);
+        vKodeBuku = findViewById(R.id.vKodebuku);
+        etKodePinjam = findViewById(R.id.etKodePinjam);
+        lny1 = findViewById(R.id.lny1);
+        lny2 = findViewById(R.id.lny2);
+        progressBar = findViewById(R.id.progressBar);
     }
 
     @Override
@@ -101,6 +143,7 @@ public class PeminjamanActivity extends AppCompatActivity {
     }
 
     private void jumlahBuku() {
+        cekKondisi(true);
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
                 Constants.URL_LIHAT_PEMINJAMAN,
@@ -123,6 +166,7 @@ public class PeminjamanActivity extends AppCompatActivity {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "Gagal menambah data", Toast.LENGTH_LONG).show();
                         }
+                        cekKondisi(false);
                     }
                 },
                 new Response.ErrorListener() {
@@ -134,110 +178,104 @@ public class PeminjamanActivity extends AppCompatActivity {
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 
-    private void cekAnggota(){
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            final String idAnggota = bundle.getString("hasil_scan2");
-            etIdAnggota.setText(idAnggota);
-
-            StringRequest stringRequest = new StringRequest(
-                    Request.Method.POST,
-                    Constants.URL_LIHAT_ANGGOTA,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                JSONArray jsonArray = jsonObject.getJSONArray("anggota");
-
-                                if (jsonArray.length() == 0){
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(PeminjamanActivity.this)
-                                            .setTitle("Oops")
-                                            .setMessage("Id anggota tidak terdaftar")
-                                            .setPositiveButton("OKE", null);
-                                    builder.show();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+    private void cekJudulBuku() {
+        cekKondisi(true);
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                Constants.URL_TRANSAKSI,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String judul_buku = jsonObject.getString("judul_buku");
+                            System.out.println(judul_buku);
+                            if (!judul_buku.equals("null")){
+                                etKodeBuku.setText(kodeBuku);
+                                etJudulBuku.setText(jsonObject.getString("judul_buku"));
+                                lny2.setVisibility(View.VISIBLE);
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Buku tidak ditemukan", Toast.LENGTH_LONG).show();
+                                etJudulBuku.setText("");
                             }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
+                        cekKondisi(false);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
 
-                        }
-                    })
-            {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<>();
+                params.put("kode_buku", kodeBuku);
 
-                    params.put("id_anggota", idAnggota);
-
-                    return params;
-                }
-            };
-            RequestHandler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
-        }
+                return params;
+            }
+        };
+        RequestHandler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
 
-    private void cekJudulBuku() {
-        Bundle bundle = getIntent().getExtras();
-        if (getIntent().getExtras() != null){
-            hasilScan = bundle.getString("hasil_scan");
-            etKodeBuku.setText(hasilScan);
+    private void cekAnggota(){
+        cekKondisi(true);
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                Constants.URL_LIHAT_ANGGOTA,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            JSONArray jsonArray = jsonObject.getJSONArray("anggota");
+                            Log.e("cekAnggota", jsonArray.toString());
 
-            StringRequest stringRequest = new StringRequest(
-                    Request.Method.POST,
-                    Constants.URL_TRANSAKSI,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                String judul_buku = jsonObject.getString("judul_buku");
-                                System.out.println(judul_buku);
-                                if (!judul_buku.equals("null")){
-                                    etJudulBuku.setText(jsonObject.getString("judul_buku"));
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "Buku tidak ditemukan", Toast.LENGTH_LONG).show();
-                                    etJudulBuku.setText("");
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            etIdAnggota.setText(idAnggota);
+
+                            if (jsonArray.length() == 0){
+                                AlertDialog.Builder builder = new AlertDialog.Builder(PeminjamanActivity.this)
+                                        .setTitle("Oops")
+                                        .setMessage("Id anggota tidak terdaftar")
+                                        .setPositiveButton("OKE", null);
+                                builder.show();
+                            } else {
+                                btnSubmit.setVisibility(View.VISIBLE);
                             }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            error.printStackTrace();
-                        }
-                    }) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<>();
+                        cekKondisi(false);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "Gagal terhubung ke server", Toast.LENGTH_LONG).show();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
 
-                    params.put("kode_buku", hasilScan);
+                params.put("id_anggota", idAnggota);
 
-                    return params;
-                }
-            };
-            RequestHandler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
-
-//            if (!hasilScan.equals("")) {
-//
-//            } else {
-//                Toast.makeText(getApplicationContext(), "Harap isi terlebih dahulu kode buku untuk menampilkan judul buku", Toast.LENGTH_LONG).show();
-//            }
-        }
+                return params;
+            }
+        };
+        RequestHandler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
 
     private void simpanData() {
         postKodeBuku = etKodeBuku.getText().toString().trim();
         postIdAnggota = etIdAnggota.getText().toString().trim();
 
+        cekKondisi(true);
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
                 Constants.URL_TRANSAKSI,
@@ -254,6 +292,7 @@ public class PeminjamanActivity extends AppCompatActivity {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
                         }
+                        cekKondisi(false);
                     }
                 },
                 new Response.ErrorListener() {
@@ -274,6 +313,16 @@ public class PeminjamanActivity extends AppCompatActivity {
             }
         };
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+    private void cekKondisi(boolean b){
+        if (b == true){
+            progressBar.setVisibility(View.VISIBLE);
+            lny1.setVisibility(View.GONE);
+        } else if (b == false) {
+            progressBar.setVisibility(View.GONE);
+            lny1.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
