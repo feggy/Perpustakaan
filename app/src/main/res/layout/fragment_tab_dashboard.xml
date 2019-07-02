@@ -1,15 +1,202 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:weightSum="10"
     android:background="#F5F5F5"
-    android:layout_gravity="center"
     tools:context="com.spesialiskp.perpustakaan.Activity.MainFragment.TabDashboard">
 
-    <TextView
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/header"
+            android:adjustViewBounds="true"/>
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Selamat Datang di Aplikasi Perpustakaan"
+            android:textColor="#FFF"
+            android:textAlignment="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="28sp"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/vTampilan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:id="@+id/lny1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="170dp">
+            <android.support.v7.widget.CardView
+                android:layout_width="160dp"
+                android:layout_height="100dp"
+                android:layout_marginRight="10dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0.1dp"
+                app:cardBackgroundColor="#3498db">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical">
+                    <TextView
+                        android:id="@+id/tvJmlhAnggota"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="0"
+                        android:textSize="18sp"
+                        android:textColor="#FFF"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="Jumlah Anggota"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFF"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="160dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0.1dp"
+                app:cardBackgroundColor="#e67e22">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical">
+                    <TextView
+                        android:id="@+id/tvJmlhBuku"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="0"
+                        android:textSize="18sp"
+                        android:textColor="#FFF"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="Jumlah Buku"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFF"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lny2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/margin">
+            <android.support.v7.widget.CardView
+                android:layout_width="160dp"
+                android:layout_height="100dp"
+                android:layout_marginRight="10dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0.1dp"
+                app:cardBackgroundColor="#c0392b">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical">
+                    <TextView
+                        android:id="@+id/tvJmlhPeminjaman"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="0"
+                        android:textSize="18sp"
+                        android:textColor="#FFF"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="Jumlah Peminjaman"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFF"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="160dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0.1dp"
+                app:cardBackgroundColor="#34495e">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical">
+                    <TextView
+                        android:id="@+id/tvJmlhKembali"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="0"
+                        android:textSize="18sp"
+                        android:textColor="#FFF"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="Jumlah Kembali"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFF"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Perpustakaan Rio Angga\nTeknik Informatika 2014"
+            android:layout_marginTop="@dimen/margin"/>
+    </LinearLayout>
+
+    <!--<TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Selamat Datang di Aplikasi Perpustakaan"
@@ -124,6 +311,6 @@
                 android:textSize="22dp"
                 android:paddingBottom="5dp"/>
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </android.support.v7.widget.CardView>-->
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
