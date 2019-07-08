@@ -40,6 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class TambahAnggotaActivity extends AppCompatActivity {
 
@@ -75,7 +76,9 @@ public class TambahAnggotaActivity extends AppCompatActivity {
         postAwal = "";
         postAkhir = "";
 
-        idAnggota();
+        Random rand = new Random();
+        strId = "ID11450"+ rand.nextInt(1000);
+        id.setText(strId);
 
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,7 +214,7 @@ public class TambahAnggotaActivity extends AppCompatActivity {
         }
     }
 
-    private void idAnggota(){
+    /*private void idAnggota(){
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
                 Constants.URL_LIHAT_ANGGOTA,
@@ -221,7 +224,8 @@ public class TambahAnggotaActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             JSONArray jsonArray = jsonObject.getJSONArray("anggota");
-                            strId = "ID11450"+(jsonArray.length()+1);
+                            Random rand = new Random();
+                            strId = "ID11450"+ rand.nextInt(1000);
                             Log.e("id_anggota", strId);
                             id.setText(strId);
                         } catch (JSONException e) {
@@ -236,7 +240,7 @@ public class TambahAnggotaActivity extends AppCompatActivity {
                     }
                 });
         RequestHandler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
-    }
+    }*/
 
     private void tambahAnggota() {
 //        strId = id.getText().toString().trim();
@@ -249,6 +253,7 @@ public class TambahAnggotaActivity extends AppCompatActivity {
         }
 
         if (!strNama.isEmpty() && !strNohp.isEmpty() && !strAlamat.isEmpty() & !postAwal.isEmpty() & !postAkhir.isEmpty()){
+            Log.e("tambahAnggota", strNama+" "+strNohp+" "+strAlamat+" "+postAwal+" "+postAkhir);
 
             StringRequest stringRequest = new StringRequest(
                     Request.Method.POST,
